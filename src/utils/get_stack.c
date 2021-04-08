@@ -6,7 +6,7 @@
 /*   By: dda-silv <dda-silv@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 20:31:51 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/04/08 21:23:04 by dda-silv         ###   ########.fr       */
+/*   Updated: 2021/04/08 23:22:39 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ int	*get_stack(int len, char *stack[])
 			error_found(1, arr);
 		arr[i] = tmp;
 		i++;
-	};
+	}
+	if (has_duplicates(arr, len))
+		error_found(1, arr);
 	return (arr);
 }
 
@@ -93,4 +95,22 @@ static int	is_all_zeros(char *item)
 			return (0);
 	}
 	return (1);
+}
+
+static int	has_duplicates(int *arr, int len)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	while (++i < len)
+	{
+		j = -1;
+		while (++j < len - 1)
+		{
+			if (i != j && arr[i] == arr[j])
+				return (1);
+		}
+	}
+	return (0);
 }
