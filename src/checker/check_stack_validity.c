@@ -6,7 +6,7 @@
 /*   By: dda-silv <dda-silv@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 17:48:12 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/04/08 18:03:27 by dda-silv         ###   ########.fr       */
+/*   Updated: 2021/04/08 18:38:24 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	check_stack_validity(int len, char *stack[])
 	int	i;
 	int	ret;
 
-	i = 0;
+	i = 1;
 	while (i < len)
 	{
 		if (!is_valid(stack[i]))
