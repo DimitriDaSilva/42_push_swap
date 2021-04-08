@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
+/*   check_stack_validity.h                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dda-silv <dda-silv@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/08 09:55:56 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/04/08 17:43:18 by dda-silv         ###   ########.fr       */
+/*   Created: 2021/04/08 17:48:50 by dda-silv          #+#    #+#             */
+/*   Updated: 2021/04/08 17:53:43 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
+#ifndef CHECK_STACK_VALIDITY_H
+# define CHECK_STACK_VALIDITY_H
 
-# include "./../../libft/src/libft.h"
+#include "main.h"
 
-void	check_stack_validity(int len, char *stack[]);
+static int	is_valid(char *stack_item);
 
 #endif

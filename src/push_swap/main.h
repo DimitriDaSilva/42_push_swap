@@ -6,7 +6,7 @@
 /*   By: dda-silv <dda-silv@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 09:55:56 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/04/08 09:58:52 by dda-silv         ###   ########.fr       */
+/*   Updated: 2021/04/08 16:34:53 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,5 @@
 # define MAIN_H
 
 # include "./../../libft/src/libft.h"
-# include <stdio.h>
 
 #endif
