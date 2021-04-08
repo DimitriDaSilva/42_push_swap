@@ -3,5 +3,7 @@ build/
 *.a
 a.out
 *.sh
-./checker
-./push_swap
+checker
+push_swap
+!src/checker
+!src/push_swap
