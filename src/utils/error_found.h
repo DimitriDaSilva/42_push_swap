@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
+/*   error_found.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dda-silv <dda-silv@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/08 09:55:56 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/04/08 17:43:18 by dda-silv         ###   ########.fr       */
+/*   Created: 2021/04/08 20:11:45 by dda-silv          #+#    #+#             */
+/*   Updated: 2021/04/08 21:23:36 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
+#ifndef ERROR_FOUND_H
+# define ERROR_FOUND_H
 
 # include "./../../libft/src/libft.h"
 
-void	check_stack_validity(int len, char *stack[]);
+void	error_found(int error_code, int *stack_a);
 
 #endif

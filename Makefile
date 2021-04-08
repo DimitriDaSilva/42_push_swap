@@ -6,7 +6,7 @@
 #    By: dda-silv <dda-silv@student.42lisboa.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/11 09:33:15 by dda-silv          #+#    #+#              #
-#    Updated: 2021/04/08 09:59:47 by dda-silv         ###   ########.fr        #
+#    Updated: 2021/04/08 19:23:38 by dda-silv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ NAME_PUSH_SWAP		:=		push_swap
 PATH_SRC			:=		src
 PATH_CHECKER		:=		$(PATH_SRC)/checker
 PATH_PUSH_SWAP		:=		$(PATH_SRC)/push_swap
+PATH_UTILS			:=		$(PATH_SRC)/utils
 PATH_BUILD			:=		build
 PATH_LIBFT			:=		libft
 
@@ -26,6 +27,8 @@ SRCS_CHECKER		:=		$(shell find $(PATH_CHECKER) -name *.c)
 OBJS_CHECKER		:=		$(SRCS_CHECKER:%.c=$(PATH_BUILD)/%.o)
 SRCS_PUSH_SWAP		:=		$(shell find $(PATH_PUSH_SWAP) -name *.c)
 OBJS_PUSH_SWAP		:=		$(SRCS_PUSH_SWAP:%.c=$(PATH_BUILD)/%.o)
+SRCS_UTILS			:=		$(shell find $(PATH_UTILS) -name *.c)
+OBJS_UTILS			:=		$(SRCS_UTILS:%.c=$(PATH_BUILD)/%.o)
 DEPS				:=		$(OBJS:.o=.d)
 INC_DIRS			:=		$(shell find $(PATH_SRC) -type d)
 
@@ -63,11 +66,11 @@ init:
 							@ printf "$(_INFO) Initialize $(NAME_CHECKER) and $(NAME_PUSH_SWAP)\n"
 							@ make -C $(PATH_LIBFT)
 
-$(NAME_CHECKER):			$(OBJS_CHECKER)
-							@ $(CC) $(FLAGS_COMP) -o $@ $(OBJS_CHECKER) $(FLAG_LIBFT)
+$(NAME_CHECKER):			$(OBJS_CHECKER) $(OBJS_UTILS)
+							@ $(CC) $(FLAGS_COMP) -o $@ $(OBJS_CHECKER) $(OBJS_UTILS) $(FLAG_LIBFT)
 
-$(NAME_PUSH_SWAP):			$(OBJS_PUSH_SWAP)
-							@ $(CC) $(FLAGS_COMP) -o $@ $(OBJS_PUSH_SWAP) $(FLAG_LIBFT)
+$(NAME_PUSH_SWAP):			$(OBJS_PUSH_SWAP) $(OBJS_UTILS)
+							@ $(CC) $(FLAGS_COMP) -o $@ $(OBJS_PUSH_SWAP) $(OBJS_UTILS) $(FLAG_LIBFT)
 
 $(PATH_BUILD)/%.o:	%.c
 							@ mkdir -p $(dir $@)
@@ -98,7 +101,7 @@ normH:
 							@ make -C $(PATH_LIBFT) normH
 
 normC:
-							@ norminette $(SRCS_CHECKER) $(SRCS_PUSH_SWAP)
+							@ norminette $(shell find $(PATH_SRC) -name *.c)
 							@ make -C $(PATH_LIBFT) normC
 
 norm:						normH normC
