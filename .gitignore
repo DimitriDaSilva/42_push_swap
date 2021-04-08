@@ -1,0 +1,7 @@
+build/
+*.o
+*.a
+a.out
+*.sh
+checker
+push_swap
