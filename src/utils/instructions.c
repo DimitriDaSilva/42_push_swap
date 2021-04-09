@@ -6,7 +6,7 @@
 /*   By: dda-silv <dda-silv@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 12:10:26 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/04/09 15:53:49 by dda-silv         ###   ########.fr       */
+/*   Updated: 2021/04/09 16:16:22 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,14 @@ void	stack_swap(t_list **stack)
 	second_node->next = first_node;
 }
 
-// void	stack_push(t_stacks *stacks, int len)
-// {
+void	stack_push(t_list **dest, t_list **src)
+{
+	t_list *tmp;
 
-// }
+	tmp = *src;
+	if (!tmp)
+		return ;
+	*src = tmp->next;
+	tmp->next = 0;
+	ft_lstadd_front(dest, tmp);
+}

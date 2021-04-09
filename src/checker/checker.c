@@ -6,7 +6,7 @@
 /*   By: dda-silv <dda-silv@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 09:53:55 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/04/09 15:56:30 by dda-silv         ###   ########.fr       */
+/*   Updated: 2021/04/09 16:19:42 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,11 +112,17 @@ static void	exec_instructions(t_list *instructions,
 			t_list **stack_a,
 			t_list **stack_b)
 {
+	printf("------------------------------------------------------------\n");
+	printf("Init:\n");
+	printf("Stack A: ");
+	ft_lst_print_d(*stack_a);
+	printf("Stack B: ");
+	ft_lst_print_d(*stack_b);
+
 	while (instructions)
 	{
-		ft_lst_print_d(*stack_a);
-		ft_lst_print_d(*stack_b);
-
+		printf("------------------------------------------------------------\n");
+		printf("Exec %s:\n", (char *)instructions->content);
 		if (!ft_strcmp((char *)instructions->content, "sa"))
 			stack_swap(stack_a);
 		else if (!ft_strcmp((char *)instructions->content, "sb"))
@@ -126,8 +132,14 @@ static void	exec_instructions(t_list *instructions,
 			stack_swap(stack_a);
 			stack_swap(stack_b);
 		}
+		else if (!ft_strcmp((char *)instructions->content, "pa"))
+			stack_push(stack_a, stack_b);
+		else if (!ft_strcmp((char *)instructions->content, "pb"))
+			stack_push(stack_b, stack_a);
 
+		printf("Stack A: ");
 		ft_lst_print_d(*stack_a);
+		printf("Stack B: ");
 		ft_lst_print_d(*stack_b);
 
 		instructions = instructions->next;
