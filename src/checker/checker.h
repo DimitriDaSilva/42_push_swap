@@ -6,7 +6,7 @@
 /*   By: dda-silv <dda-silv@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 09:55:56 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/04/09 17:03:03 by dda-silv         ###   ########.fr       */
+/*   Updated: 2021/04/09 19:24:47 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,6 @@ void	exec_instructions(t_list *instructions,
 			t_list **stack_a,
 			t_list **stack_b,
 			char mode);
+int		is_sorted(t_list *stack);
 
 #endif

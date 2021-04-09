@@ -6,7 +6,7 @@
 /*   By: dda-silv <dda-silv@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 09:53:55 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/04/09 16:40:23 by dda-silv         ###   ########.fr       */
+/*   Updated: 2021/04/09 19:29:07 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,29 @@ int	main(int argc, char *argv[])
 		get_stack(argv + 2, argc - 2, &stack_a);
 	else
 		get_stack(argv + 1, argc - 1, &stack_a);
-	// ft_lst_print_d(stack_a);
 	get_instructions(&instructions, &stack_a, &stack_b);
-	// ft_lst_print_s(instructions);
 	exec_instructions(instructions, &stack_a, &stack_b, mode);
-	// if (is_sorted(stack))
-		// printf("OK\n");
-	// else
-	// 	printft("KO\n");
+	if (is_sorted(stack_a) && ft_lstsize(stack_b) == 0)
+		printf("OK\n");
+	else
+		printf("KO\n");
 	ft_exit(0, &stack_a, &stack_b, &instructions);
+}
+
+int	is_sorted(t_list *stack)
+{
+	int	tmp;
+
+	if (!stack)
+		return (0);
+	if (!stack->next)
+		return (1);
+	while (stack->next)
+	{
+		tmp = (long int)stack->data;
+		stack = stack->next;
+		if (tmp >= (long int)stack->data)
+			return (0);
+	}
+	return (1);
 }

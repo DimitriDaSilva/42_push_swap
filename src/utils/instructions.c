@@ -6,7 +6,7 @@
 /*   By: dda-silv <dda-silv@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 12:10:26 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/04/09 19:02:27 by dda-silv         ###   ########.fr       */
+/*   Updated: 2021/04/09 19:16:14 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	swap_stack(t_list **stack)
 
 void	push_stack(t_list **dest, t_list **src)
 {
-	t_list *tmp;
+	t_list	*tmp;
 
 	tmp = *src;
 	if (!tmp)
