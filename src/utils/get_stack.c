@@ -6,7 +6,7 @@
 /*   By: dda-silv <dda-silv@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 20:31:51 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/04/09 15:01:21 by dda-silv         ###   ########.fr       */
+/*   Updated: 2021/04/09 17:13:06 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ static int	has_duplicates(t_list *stack)
 		tmp = stack->next;
 		while (tmp)
 		{
-			if (stack->content == tmp->content)
+			if (stack->data == tmp->data)
 				return (1);
 			tmp = tmp->next;
 		}

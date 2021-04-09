@@ -6,7 +6,7 @@
 /*   By: dda-silv <dda-silv@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 20:09:17 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/04/09 15:55:34 by dda-silv         ###   ########.fr       */
+/*   Updated: 2021/04/09 18:26:27 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,3 +61,36 @@ void	ft_exit(int exit_code,
 	}
 }
 
+void	print_stacks(char *instruction,	t_list *stack_a, t_list *stack_b)
+{
+	int	len_a;
+	int	len_b;
+
+	len_a = ft_lstsize(stack_a);
+	len_b = ft_lstsize(stack_b);
+	printf("----------------\n%s:\n\n", instruction);
+	while (len_a >= 0 && len_b >= 0)
+		print_stack(&stack_a, &len_a, &stack_b, &len_b);
+	printf("   ___    ___\n    A      B\n");
+}
+
+void	print_stack(t_list **stack_a, int *len_a, t_list **stack_b, int *len_b)
+{
+	if (*len_a > *len_b && (*len_a)--)
+	{
+		printf("  % -5ld\n", (long int)(*stack_a)->data);
+		*stack_a = (*stack_a)->next;
+	}
+	else if (*len_a < *len_b && (*len_b)--)
+	{
+		printf("         % -5ld\n", (long int)(*stack_b)->data);
+		*stack_b = (*stack_b)->next;
+	}
+	else if ((*len_a)-- && (*len_b)--)
+	{
+		printf("  % -5ld", (long int)(*stack_a)->data);
+		printf("  % -5ld\n", (long int)(*stack_b)->data);
+		*stack_a = (*stack_a)->next;
+		*stack_b = (*stack_b)->next;
+	}
+}
