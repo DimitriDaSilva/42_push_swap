@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_found.c                                      :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dda-silv <dda-silv@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/08 20:09:17 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/04/08 21:14:39 by dda-silv         ###   ########.fr       */
+/*   Created: 2021/04/09 08:16:03 by dda-silv          #+#    #+#             */
+/*   Updated: 2021/04/09 09:12:24 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "error_found.h"
+#ifndef UTILS_H
+# define UTILS_H
 
-void	error_found(int error_code, int *stack_a)
+# include "./../../libft/src/libft.h"
+# include "ft_exit.h"
+
+typedef struct s_stacks
 {
-	int	ret;
+	int			*a;
+	int			*b;
+}				t_stacks;
 
-	if (error_code == 1)
-		free(stack_a);
-	ret = write(STDERR_FILENO, "Error\n", 6);
-	exit(EXIT_FAILURE);
-	(void)ret;
-}
+#endif

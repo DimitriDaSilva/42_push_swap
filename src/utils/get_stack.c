@@ -6,7 +6,7 @@
 /*   By: dda-silv <dda-silv@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 20:31:51 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/04/08 23:22:39 by dda-silv         ###   ########.fr       */
+/*   Updated: 2021/04/09 09:17:10 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,20 @@ int	*get_stack(int len, char *stack[])
 
 	arr = malloc(len * sizeof(int));
 	if (!arr)
-		exit(EXIT_FAILURE);
+		ft_exit(-1, arr, 0, 0);
 	i = 0;
 	while (i < len)
 	{
 		if (!is_int(stack[i]))
-			error_found(1, arr);
+			ft_exit(1, arr, 0, 0);
 		tmp = ft_atoi(stack[i]);
 		if (is_bigger_than_int(tmp, stack[i]))
-			error_found(1, arr);
+			ft_exit(1, arr, 0, 0);
 		arr[i] = tmp;
 		i++;
 	}
 	if (has_duplicates(arr, len))
-		error_found(1, arr);
+		ft_exit(1, arr, 0, 0);
 	return (arr);
 }
 

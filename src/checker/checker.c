@@ -6,7 +6,7 @@
 /*   By: dda-silv <dda-silv@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 09:53:55 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/04/08 23:19:12 by dda-silv         ###   ########.fr       */
+/*   Updated: 2021/04/09 09:21:03 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,23 +25,26 @@
 
 int	main(int argc, char *argv[])
 {
-	char	**instructions;
-	int		*stack;
+	char		**instructions;
+	t_stacks	stacks;
 
 	if (argc == 1)
 		return (1);
-	stack = get_stack(argc - 1, argv + 1);
-	print_arr_int(stack, argc - 1);
+	stacks.a = get_stack(argc - 1, argv + 1);
+	stacks.b = malloc((argc - 1) * sizeof(int));
+	if (!stacks.b)
+		ft_exit(1, stacks.a, 0, 0);
+	print_arr_int(stacks.a, argc - 1);
 	instructions = get_instructions();
+	if (!instructions)
+		ft_exit(2, stacks.a, stacks.b, 0);
 	print_arr_str(instructions);
-	// execute_instructions(stack, instructions);
+	// execute_instructions(stacks, instructions);
 	// if (is_sorted(stack))
 	// 	printft("OK\n");
 	// else
 	// 	printft("KO\n");
-	free(stack);
-	free_strs(instructions);
-	return (0);
+	ft_exit(0, stacks.a, stacks.b, instructions);
 }
 
 static char	**get_instructions(void)
@@ -51,7 +54,7 @@ static char	**get_instructions(void)
 	int		i;
 
 	instructions = 0;
-	instructions = ft_calloc(1, sizeof(char *));
+	instructions = ft_calloc(STDIN_FILENO, sizeof(char *));
 	if (!instructions)
 		return (0);
 	i = 0;
@@ -67,15 +70,4 @@ static char	**get_instructions(void)
 	free(line);
 	instructions[i] = 0;
 	return (instructions);
-}
-
-static void	free_strs(char **strs)
-{
-	int	i;
-
-	i = 0;
-	while (strs[i])
-		free(strs[i++]);
-	free(strs[i]);
-	free(strs);
 }
