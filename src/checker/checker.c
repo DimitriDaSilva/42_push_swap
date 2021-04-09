@@ -6,7 +6,7 @@
 /*   By: dda-silv <dda-silv@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 09:53:55 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/04/09 12:33:15 by dda-silv         ###   ########.fr       */
+/*   Updated: 2021/04/09 15:56:30 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,26 +25,25 @@
 
 int	main(int argc, char *argv[])
 {
-	t_list		*instructions;
-	t_stacks	stacks;
+	t_list	*instructions;
+	t_list	*stack_a;
+	t_list	*stack_b;
 
+	instructions = 0;
+	stack_a = 0;
+	stack_b = 0;
 	if (argc == 1)
 		return (1);
-	stacks.len = argc - 1;
-	stacks.a = get_stack(stacks.len, argv + 1);
-	stacks.b = ft_calloc(stacks.len, sizeof(int));
-	if (!stacks.b)
-		ft_exit(1, stacks.a, 0, 0);
-	// print_arr_int(stacks.a, stacks.len);
-	instructions = 0;
-	get_instructions(&instructions, &stacks);
+	get_stack(argv + 1, argc - 1, &stack_a);
+	ft_lst_print_d(stack_a);
+	get_instructions(&instructions, &stack_a, &stack_b);
 	// ft_lst_print_s(instructions);
-	exec_instructions(instructions, &stacks);
+	exec_instructions(instructions, &stack_a, &stack_b);
 	// if (is_sorted(stack))
 		// printf("OK\n");
 	// else
 	// 	printft("KO\n");
-	ft_exit(0, stacks.a, stacks.b, &instructions);
+	ft_exit(0, &stack_a, &stack_b, &instructions);
 }
 
 /*
@@ -56,7 +55,9 @@ int	main(int argc, char *argv[])
 ** @line-line	comment
 */
 
-static void	get_instructions(t_list **instructions, t_stacks *stacks)
+static void	get_instructions(t_list **instructions,
+			t_list **stack_a,
+			t_list **stack_b)
 {
 	char	*line;
 	t_list	*tmp;
@@ -66,13 +67,13 @@ static void	get_instructions(t_list **instructions, t_stacks *stacks)
 		if (!is_instruction_valid(line))
 		{
 			free(line);
-			ft_exit(2, stacks->a, stacks->b, instructions);
+			ft_exit(2, stack_a, stack_b, instructions);
 		}
 		tmp = ft_lstnew((void *)line);
 		if (!tmp)
 		{
 			free(line);
-			ft_exit(2, stacks->a, stacks->b, instructions);
+			ft_exit(2, stack_a, stack_b, instructions);
 		}
 		ft_lstadd_back(instructions, tmp);
 	}
@@ -107,25 +108,28 @@ static int	is_instruction_valid(char *instruction)
 		return (0);
 }
 
-static void	exec_instructions(t_list *instructions, t_stacks *stacks)
+static void	exec_instructions(t_list *instructions,
+			t_list **stack_a,
+			t_list **stack_b)
 {
 	while (instructions)
 	{
-		print_arr_int(stacks->a, stacks->len);
-		print_arr_int(stacks->b, stacks->len);
+		ft_lst_print_d(*stack_a);
+		ft_lst_print_d(*stack_b);
 
 		if (!ft_strcmp((char *)instructions->content, "sa"))
-			stack_swap(&stacks->a, stacks->len);
+			stack_swap(stack_a);
 		else if (!ft_strcmp((char *)instructions->content, "sb"))
-			stack_swap(&stacks->b, stacks->len);
+			stack_swap(stack_b);
 		else if (!ft_strcmp((char *)instructions->content, "ss"))
 		{
-			stack_swap(&stacks->a, stacks->len);
-			stack_swap(&stacks->b, stacks->len);
+			stack_swap(stack_a);
+			stack_swap(stack_b);
 		}
 
-		print_arr_int(stacks->a, stacks->len);
-		print_arr_int(stacks->b, stacks->len);
+		ft_lst_print_d(*stack_a);
+		ft_lst_print_d(*stack_b);
+
 		instructions = instructions->next;
 	}
 }

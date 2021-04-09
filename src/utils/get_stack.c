@@ -6,35 +6,34 @@
 /*   By: dda-silv <dda-silv@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 20:31:51 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/04/09 09:17:10 by dda-silv         ###   ########.fr       */
+/*   Updated: 2021/04/09 15:01:21 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_stack.h"
 
-int	*get_stack(int len, char *stack[])
+void	get_stack(char *stack[], int len, t_list **stack_a)
 {
-	int			*arr;
+	t_list		*node;
 	int			i;
 	long long	tmp;
 
-	arr = malloc(len * sizeof(int));
-	if (!arr)
-		ft_exit(-1, arr, 0, 0);
 	i = 0;
 	while (i < len)
 	{
 		if (!is_int(stack[i]))
-			ft_exit(1, arr, 0, 0);
+			ft_exit(1, stack_a, 0, 0);
 		tmp = ft_atoi(stack[i]);
 		if (is_bigger_than_int(tmp, stack[i]))
-			ft_exit(1, arr, 0, 0);
-		arr[i] = tmp;
+			ft_exit(1, stack_a, 0, 0);
+		node = ft_lstnew((void *)tmp);
+		if (!node)
+			ft_exit(1, stack_a, 0, 0);
+		ft_lstadd_back(stack_a, node);
 		i++;
 	}
-	if (has_duplicates(arr, len))
-		ft_exit(1, arr, 0, 0);
-	return (arr);
+	if (has_duplicates(*stack_a))
+		ft_exit(1, stack_a, 0, 0);
 }
 
 /*
@@ -97,20 +96,20 @@ static int	is_all_zeros(char *item)
 	return (1);
 }
 
-static int	has_duplicates(int *arr, int len)
+static int	has_duplicates(t_list *stack)
 {
-	int	i;
-	int	j;
+	t_list	*tmp;
 
-	i = -1;
-	while (++i < len)
+	while (stack)
 	{
-		j = -1;
-		while (++j < len - 1)
+		tmp = stack->next;
+		while (tmp)
 		{
-			if (i != j && arr[i] == arr[j])
+			if (stack->content == tmp->content)
 				return (1);
+			tmp = tmp->next;
 		}
+		stack = stack->next;
 	}
 	return (0);
 }
