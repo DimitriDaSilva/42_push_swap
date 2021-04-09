@@ -1,23 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exit.h                                          :+:      :+:    :+:   */
+/*   instructions.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dda-silv <dda-silv@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/08 20:11:45 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/04/09 11:22:45 by dda-silv         ###   ########.fr       */
+/*   Created: 2021/04/09 12:11:20 by dda-silv          #+#    #+#             */
+/*   Updated: 2021/04/09 12:14:44 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_EXIT_H
-# define FT_EXIT_H
+#ifndef INSTRUCTIONS_H
+# define INSTRUCTIONS_H
 
 # include "utils.h"
 
-void	ft_exit(int exit_code,
-		int *stack_a,
-		int *stack_b,
-		t_list **instructions);
+void	stack_swap(int **stack, int len);
 
 #endif

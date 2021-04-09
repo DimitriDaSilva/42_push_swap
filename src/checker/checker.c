@@ -6,7 +6,7 @@
 /*   By: dda-silv <dda-silv@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 09:53:55 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/04/09 11:40:48 by dda-silv         ###   ########.fr       */
+/*   Updated: 2021/04/09 12:33:15 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,16 @@ int	main(int argc, char *argv[])
 
 	if (argc == 1)
 		return (1);
-	stacks.a = get_stack(argc - 1, argv + 1);
-	stacks.b = ft_calloc(argc - 1, sizeof(int));
+	stacks.len = argc - 1;
+	stacks.a = get_stack(stacks.len, argv + 1);
+	stacks.b = ft_calloc(stacks.len, sizeof(int));
 	if (!stacks.b)
 		ft_exit(1, stacks.a, 0, 0);
-	print_arr_int(stacks.a, argc - 1);
+	// print_arr_int(stacks.a, stacks.len);
 	instructions = 0;
 	get_instructions(&instructions, &stacks);
-	ft_lst_print_s(instructions);
-	// execute_instructions(stacks, instructions);
+	// ft_lst_print_s(instructions);
+	exec_instructions(instructions, &stacks);
 	// if (is_sorted(stack))
 		// printf("OK\n");
 	// else
@@ -65,13 +66,13 @@ static void	get_instructions(t_list **instructions, t_stacks *stacks)
 		if (!is_instruction_valid(line))
 		{
 			free(line);
-			ft_exit(3, stacks->a, stacks->b, instructions);
+			ft_exit(2, stacks->a, stacks->b, instructions);
 		}
 		tmp = ft_lstnew((void *)line);
 		if (!tmp)
 		{
 			free(line);
-			ft_exit(3, stacks->a, stacks->b, instructions);
+			ft_exit(2, stacks->a, stacks->b, instructions);
 		}
 		ft_lstadd_back(instructions, tmp);
 	}
@@ -104,4 +105,27 @@ static int	is_instruction_valid(char *instruction)
 		return (1);
 	else
 		return (0);
+}
+
+static void	exec_instructions(t_list *instructions, t_stacks *stacks)
+{
+	while (instructions)
+	{
+		print_arr_int(stacks->a, stacks->len);
+		print_arr_int(stacks->b, stacks->len);
+
+		if (!ft_strcmp((char *)instructions->content, "sa"))
+			stack_swap(&stacks->a, stacks->len);
+		else if (!ft_strcmp((char *)instructions->content, "sb"))
+			stack_swap(&stacks->b, stacks->len);
+		else if (!ft_strcmp((char *)instructions->content, "ss"))
+		{
+			stack_swap(&stacks->a, stacks->len);
+			stack_swap(&stacks->b, stacks->len);
+		}
+
+		print_arr_int(stacks->a, stacks->len);
+		print_arr_int(stacks->b, stacks->len);
+		instructions = instructions->next;
+	}
 }
