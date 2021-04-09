@@ -6,7 +6,7 @@
 /*   By: dda-silv <dda-silv@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 20:11:45 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/04/09 09:12:47 by dda-silv         ###   ########.fr       */
+/*   Updated: 2021/04/09 11:22:45 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 
 # include "utils.h"
 
-void	ft_exit(int exit_code, int *stack_a, int *stack_b, char **instructions);
+void	ft_exit(int exit_code,
+		int *stack_a,
+		int *stack_b,
+		t_list **instructions);
 
 #endif

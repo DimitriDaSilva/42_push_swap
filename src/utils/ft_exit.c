@@ -6,7 +6,7 @@
 /*   By: dda-silv <dda-silv@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 20:09:17 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/04/09 09:37:02 by dda-silv         ###   ########.fr       */
+/*   Updated: 2021/04/09 11:22:34 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@
 ** @line-line	comment
 */
 
-void	ft_exit(int exit_code, int *stack_a, int *stack_b, char **instructions)
+void	ft_exit(int exit_code,
+		int *stack_a,
+		int *stack_b,
+		t_list **instructions)
 {
 	int	ret;
 
@@ -33,7 +36,7 @@ void	ft_exit(int exit_code, int *stack_a, int *stack_b, char **instructions)
 	{
 		free(stack_a);
 		free(stack_b);
-		free_arr((void **)instructions);
+		ft_lstclear(instructions, free);
 		exit(EXIT_SUCCESS);
 	}
 	else
@@ -43,9 +46,10 @@ void	ft_exit(int exit_code, int *stack_a, int *stack_b, char **instructions)
 		if (exit_code >= 2)
 			free(stack_b);
 		if (exit_code >= 3)
-			free_arr((void **)instructions);
+			ft_lstclear(instructions, free);
 		ret = write(STDERR_FILENO, "Error\n", 6);
 		exit(EXIT_FAILURE);
 		(void)ret;
 	}
 }
+
