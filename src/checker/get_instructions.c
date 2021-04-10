@@ -6,7 +6,7 @@
 /*   By: dda-silv <dda-silv@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 16:25:58 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/04/09 16:27:33 by dda-silv         ###   ########.fr       */
+/*   Updated: 2021/04/10 20:08:18 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	get_instructions(t_list **instructions,
 	char	*line;
 	t_list	*tmp;
 
-	while (get_next_line(1, &line))
+	while (get_next_line(STDIN_FILENO, &line))
 	{
 		if (!is_instruction_valid(line))
 		{

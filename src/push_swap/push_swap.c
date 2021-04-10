@@ -6,7 +6,7 @@
 /*   By: dda-silv <dda-silv@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 09:53:55 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/04/09 21:06:45 by dda-silv         ###   ########.fr       */
+/*   Updated: 2021/04/10 20:42:30 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@ int	main(int argc, char *argv[])
 		get_stack(argv + 2, argc - 2, &stack_a);
 	else
 		get_stack(argv + 1, argc - 1, &stack_a);
-	ft_lst_print_d(stack_a);
+	// ft_lst_print_d(stack_a);
+	printf("ra\n");
+	printf("ra\n");
+	sort_stack(&stack_a, &stack_b);
 	ft_exit(0, &stack_a, &stack_b, 0);
 	(void)mode;
 }

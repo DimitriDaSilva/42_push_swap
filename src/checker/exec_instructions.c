@@ -6,7 +6,7 @@
 /*   By: dda-silv <dda-silv@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 16:29:59 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/04/09 19:06:14 by dda-silv         ###   ########.fr       */
+/*   Updated: 2021/04/10 20:46:45 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	exec_instructions(t_list *instructions,
 			exec_rev_rotate(instructions, stack_a, stack_b);
 		if (mode == 'v')
 			print_stacks((char *)instructions->data, *stack_a, *stack_b);
+		sleep(2);
 		instructions = instructions->next;
 	}
 }
