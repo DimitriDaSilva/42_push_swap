@@ -6,7 +6,7 @@
 /*   By: dda-silv <dda-silv@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 09:53:55 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/04/09 21:02:23 by dda-silv         ###   ########.fr       */
+/*   Updated: 2021/04/11 09:27:35 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,22 +49,4 @@ int	main(int argc, char *argv[])
 	else
 		printf("KO\n");
 	ft_exit(0, &stack_a, &stack_b, &instructions);
-}
-
-int	is_sorted(t_list *stack)
-{
-	int	tmp;
-
-	if (!stack)
-		return (0);
-	if (!stack->next)
-		return (1);
-	while (stack->next)
-	{
-		tmp = (long int)stack->data;
-		stack = stack->next;
-		if (tmp >= (long int)stack->data)
-			return (0);
-	}
-	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: dda-silv <dda-silv@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 20:09:17 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/04/09 19:24:54 by dda-silv         ###   ########.fr       */
+/*   Updated: 2021/04/11 09:28:13 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,4 +93,22 @@ void	print_stack(t_list **stack_a, int *len_a, t_list **stack_b, int *len_b)
 		*stack_a = (*stack_a)->next;
 		*stack_b = (*stack_b)->next;
 	}
+}
+
+int	is_sorted(t_list *stack)
+{
+	int	tmp;
+
+	if (!stack)
+		return (0);
+	if (!stack->next)
+		return (1);
+	while (stack->next)
+	{
+		tmp = (long int)stack->data;
+		stack = stack->next;
+		if (tmp >= (long int)stack->data)
+			return (0);
+	}
+	return (1);
 }
