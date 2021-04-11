@@ -6,7 +6,7 @@
 /*   By: dda-silv <dda-silv@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 09:21:22 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/04/11 16:28:33 by dda-silv         ###   ########.fr       */
+/*   Updated: 2021/04/11 17:34:16 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,9 @@ void	sort_stack_small(t_list **stack_a)
 {
 	int	max;
 	int	min;
-	int	median;
 
 	max = ft_lst_find_max(*stack_a);
 	min = ft_lst_find_min(*stack_a);
-	median = ft_lst_find_median(*stack_a);
 	while (!is_sorted(*stack_a))
 	{
 		if ((*stack_a)->data < (*stack_a)->next->data
@@ -50,5 +48,4 @@ void	sort_stack_small(t_list **stack_a)
 			swap_stack(stack_a);
 		}
 	}
-	(void)median;
 }
