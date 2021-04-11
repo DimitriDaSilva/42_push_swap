@@ -6,7 +6,7 @@
 /*   By: dda-silv <dda-silv@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 09:21:22 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/04/11 17:34:16 by dda-silv         ###   ########.fr       */
+/*   Updated: 2021/04/11 20:33:17 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,10 @@ void	sort_stack(t_list **stack_a, t_list **stack_b)
 	len = ft_lstsize(*stack_a);
 	if (len <= 1)
 		return ;
-	if (len <= 4)
+	else if (len <= 4)
 		sort_stack_small(stack_a);
 	else
-		sort_stack_big(stack_a, stack_b);
-	(void)stack_b;
+		sort_stack_big(stack_a, stack_b, len);
 }
 
 void	sort_stack_small(t_list **stack_a)
