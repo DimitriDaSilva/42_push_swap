@@ -1,32 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort_stack.c                                       :+:      :+:    :+:   */
+/*   sort_stack_big.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dda-silv <dda-silv@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/10 09:21:22 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/04/11 16:28:33 by dda-silv         ###   ########.fr       */
+/*   Created: 2021/04/11 12:08:19 by dda-silv          #+#    #+#             */
+/*   Updated: 2021/04/11 16:16:19 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sort_stack.h"
+#include "sort_stack_big.h"
 
-void	sort_stack(t_list **stack_a, t_list **stack_b)
-{
-	int	len;
-
-	len = ft_lstsize(*stack_a);
-	if (len <= 1)
-		return ;
-	if (len <= 4)
-		sort_stack_small(stack_a);
-	else
-		sort_stack_big(stack_a, stack_b);
-	(void)stack_b;
-}
-
-void	sort_stack_small(t_list **stack_a)
+void	sort_stack_big(t_list **stack_a, t_list **stack_b)
 {
 	int	max;
 	int	min;
@@ -51,4 +37,5 @@ void	sort_stack_small(t_list **stack_a)
 		}
 	}
 	(void)median;
+	(void)stack_b;
 }

@@ -6,16 +6,11 @@
 /*   By: dda-silv <dda-silv@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 20:09:17 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/04/11 09:28:13 by dda-silv         ###   ########.fr       */
+/*   Updated: 2021/04/11 16:09:16 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
-
-static void	del(void *data)
-{
-	(void)data;
-}
 
 /*
 ** Exits program and frees or displays message based on the exit code
@@ -41,18 +36,18 @@ void	ft_exit(int exit_code,
 
 	if (exit_code == 0)
 	{
-		ft_lstclear(stack_a, del);
-		ft_lstclear(stack_b, del);
+		ft_lstclear(stack_a, ft_lstdel_int);
+		ft_lstclear(stack_b, ft_lstdel_int);
 		ft_lstclear(instructions, free);
 		exit(EXIT_SUCCESS);
 	}
 	else
 	{
 		if (exit_code >= 1)
-			ft_lstclear(stack_a, del);
+			ft_lstclear(stack_a, ft_lstdel_int);
 		if (exit_code >= 2)
 		{
-			ft_lstclear(stack_b, del);
+			ft_lstclear(stack_b, ft_lstdel_int);
 			ft_lstclear(instructions, free);
 		}
 		ret = write(STDERR_FILENO, "Error\n", 6);
