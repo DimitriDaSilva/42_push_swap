@@ -6,7 +6,7 @@
 /*   By: dda-silv <dda-silv@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/11 12:08:19 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/04/11 20:33:46 by dda-silv         ###   ########.fr       */
+/*   Updated: 2021/04/11 22:29:32 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,18 @@
 
 void	sort_stack_big(t_list **stack_a, t_list **stack_b, int len)
 {
-	// int	max;
-	// int	min;
+	int	max;
+	int	min;
 	int	median;
 
-	// max = ft_lst_find_max(*stack_a);
-	// min = ft_lst_find_min(*stack_a);
+	max = ft_lst_find_max(*stack_a);
+	min = ft_lst_find_min(*stack_a);
 	median = ft_lst_find_median(*stack_a);
-	// printf("\033[0;34m📌 Here in %s line %d\n\033[0m", __FILE__, __LINE__);
 	split_in_two_w_median(stack_a, stack_b, median, len / 2);
+	merge_b_into_a(stack_a, stack_b, median, len / 2);
 	return ;
+	(void)min;
+	(void)max;
 }
 
 static void	split_in_two_w_median(t_list **stack_a,
@@ -45,4 +47,31 @@ static void	split_in_two_w_median(t_list **stack_a,
 			half_len--;
 		}
 	}
+}
+
+static void	merge_b_into_a(t_list **stack_a,
+				t_list ** stack_b,
+				int median,
+				int half_len)
+{
+	int	min_b;
+
+	while (half_len)
+	{
+		min_b = ft_lst_find_min(*stack_b);
+		if ((long int)(*stack_b)->data == min_b)
+		{
+			printf("pa\n");
+			push_stack(stack_a, stack_b);
+			half_len--;
+			printf("ra\n");
+			rotate_stack(stack_a);
+		}
+		else
+		{
+			printf("rb\n");
+			rotate_stack(stack_b);
+		}
+	}
+	(void)median;
 }
