@@ -1,38 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort_stack_medium.c                                :+:      :+:    :+:   */
+/*   push_swap_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dda-silv <dda-silv@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/11 12:08:19 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/04/12 15:01:50 by dda-silv         ###   ########.fr       */
+/*   Created: 2021/04/12 15:35:08 by dda-silv          #+#    #+#             */
+/*   Updated: 2021/04/12 15:54:25 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sort_stack_medium.h"
+#include "push_swap_utils.h"
 
-void	sort_stack_medium(t_list **stack_a, t_list **stack_b, int len)
-{
-	int	max;
-	int	min;
-	int	median;
-
-	max = ft_lst_get_max(*stack_a);
-	min = ft_lst_get_min(*stack_a);
-	median = ft_lst_get_median(*stack_a);
-	split_a_in_two_w_median(stack_a, stack_b, median, is_less_than_or_equal);
-	merge_b_into_a(stack_a, stack_b, median, len / 2);
-	split_a_in_two_w_median(stack_a, stack_b, median, is_greater_than);
-	merge_b_into_a(stack_a, stack_b, median, len / 2);
-	rotate_until_sorted(stack_a);
-	return ;
-	(void)min;
-	(void)max;
-}
-
-static void	split_a_in_two_w_median(t_list **stack_a,
-				t_list ** stack_b,
+void	split_a_in_two_w_median(t_list **stack_a,
+				t_list **stack_b,
 				int median,
 				int (*cmp)(int, int))
 {
@@ -55,19 +36,13 @@ static void	split_a_in_two_w_median(t_list **stack_a,
 	}
 }
 
-static void	merge_b_into_a(t_list **stack_a,
-				t_list ** stack_b,
-				int median,
+void	merge_b_into_a(t_list **stack_a,
+				t_list **stack_b,
 				int half_len)
 {
-	int	min_b;
-	int	max_b;
-
 	while (half_len)
 	{
-		min_b = ft_lst_get_min(*stack_b);
-		max_b = ft_lst_get_max(*stack_b);
-		if ((long int)(*stack_b)->data == min_b)
+		if ((long int)(*stack_b)->data == ft_lst_get_min(*stack_b))
 		{
 			printf("pa\n");
 			push_stack(stack_a, stack_b);
@@ -75,7 +50,7 @@ static void	merge_b_into_a(t_list **stack_a,
 			printf("ra\n");
 			rotate_stack(stack_a);
 		}
-		else if ((long int)(*stack_b)->data == max_b)
+		else if ((long int)(*stack_b)->data == ft_lst_get_max(*stack_b))
 		{
 			printf("pa\n");
 			push_stack(stack_a, stack_b);
@@ -87,10 +62,9 @@ static void	merge_b_into_a(t_list **stack_a,
 			rotate_stack(stack_b);
 		}
 	}
-	(void)median;
 }
 
-static void	rotate_until_sorted(t_list **stack)
+void	rotate_until_sorted(t_list **stack)
 {
 	int	min;
 	int	half_len;
