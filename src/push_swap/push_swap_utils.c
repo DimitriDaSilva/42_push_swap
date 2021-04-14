@@ -68,7 +68,10 @@ void	merge_b_into_a(t_list **stack_a,
 {
 	while (*stack_b)
 	{
-		if ((long int)(*stack_b)->data == ft_lst_get_min(*stack_b)
+		if ((*stack_b)->next == 0
+			&& is_right_position(stack_a, stack_b))
+			push_stack_print(stack_a, stack_b, "pa");
+		else if ((long int)(*stack_b)->data == ft_lst_get_min(*stack_b)
 			&& (*stack_b)->data > (*stack_a)->data)
 			rotate_stack_print(stack_a, "ra");
 		else if ((long int)(*stack_b)->data == ft_lst_get_min(*stack_b))
@@ -83,6 +86,24 @@ void	merge_b_into_a(t_list **stack_a,
 			rotate_stack_print(stack_b, "rb");
 	}
 	(void)half_len;
+}
+
+int	is_right_position(t_list **stack_a, t_list **stack_b)
+{
+	int	min_a;
+	int	max_a;
+	int	check;
+
+	min_a = ft_lst_get_min(*stack_a);
+	max_a = ft_lst_get_max(*stack_a);
+	if ((long int)(*stack_b)->data < min_a)
+		return (min_a == (long int)(*stack_a)->data);
+	else if (max_a < (long int)(*stack_b)->data)
+		return (min_a == (long int)(*stack_a)->data);
+	push_stack(stack_a, stack_b);
+	check = is_first_node_sorted(*stack_a, *stack_b);
+	push_stack(stack_b, stack_a);
+	return (check);
 }
 
 void	rotate_until_sorted(t_list **stack)

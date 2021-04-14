@@ -6,7 +6,7 @@
 /*   By: dda-silv <dda-silv@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 20:09:17 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/04/14 10:09:39 by dda-silv         ###   ########.fr       */
+/*   Updated: 2021/04/14 19:44:32 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,8 @@ int	is_first_node_sorted(t_list *stack_a, t_list *stack_b)
 	int		index_last_node;
 
 	if ((long long)stack_a->data > ft_lst_get_min(stack_b))
+		return (0);
+	else if ((long long)stack_a->data < ft_lst_get_max(stack_b))
 		return (0);
 	tmp = stack_a;
 	while (tmp->next)

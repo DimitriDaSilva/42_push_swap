@@ -6,7 +6,7 @@
 /*   By: dda-silv <dda-silv@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 15:35:31 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/04/14 16:59:24 by dda-silv         ###   ########.fr       */
+/*   Updated: 2021/04/14 19:40:18 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int		is_closer_to_top(t_list *stack, int median, int (*cmp)(int, int));
 void	merge_b_into_a(t_list **stack_a,
 			t_list **stack_b,
 			int half_len);
+int		is_right_position(t_list **stack_a, t_list **stack_b);
 void	rotate_until_sorted(t_list **stack);
 
 #endif
