@@ -6,7 +6,7 @@
 /*   By: dda-silv <dda-silv@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 15:35:08 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/04/12 15:54:25 by dda-silv         ###   ########.fr       */
+/*   Updated: 2021/04/14 10:22:26 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,10 @@ void	split_a_in_two_w_median(t_list **stack_a,
 	int	half_len;
 
 	half_len = ft_lstsize(*stack_a) / 2;
-	while (half_len)
+	while (half_len && !is_sorted(*stack_a))
 	{
-		if (cmp(median, (long int)(*stack_a)->data))
+		if (cmp(median, (long int)(*stack_a)->data)
+			|| is_first_node_sorted(*stack_a, *stack_b))
 		{
 			printf("ra\n");
 			rotate_stack(stack_a);
@@ -40,13 +41,12 @@ void	merge_b_into_a(t_list **stack_a,
 				t_list **stack_b,
 				int half_len)
 {
-	while (half_len)
+	while (*stack_b)
 	{
 		if ((long int)(*stack_b)->data == ft_lst_get_min(*stack_b))
 		{
 			printf("pa\n");
 			push_stack(stack_a, stack_b);
-			half_len--;
 			printf("ra\n");
 			rotate_stack(stack_a);
 		}
@@ -54,7 +54,6 @@ void	merge_b_into_a(t_list **stack_a,
 		{
 			printf("pa\n");
 			push_stack(stack_a, stack_b);
-			half_len--;
 		}
 		else
 		{
@@ -62,6 +61,7 @@ void	merge_b_into_a(t_list **stack_a,
 			rotate_stack(stack_b);
 		}
 	}
+	(void)half_len;
 }
 
 void	rotate_until_sorted(t_list **stack)

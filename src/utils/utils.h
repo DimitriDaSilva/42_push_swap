@@ -6,7 +6,7 @@
 /*   By: dda-silv <dda-silv@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 08:16:03 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/04/11 09:28:11 by dda-silv         ###   ########.fr       */
+/*   Updated: 2021/04/14 10:10:09 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,6 @@ void	ft_exit(int exit_code,
 void	print_stacks(char *instruction,	t_list *stack_a, t_list *stack_b);
 void	print_stack(t_list **stack_a, int *len_a, t_list **stack_b, int *len_b);
 int		is_sorted(t_list *stack);
+int		is_first_node_sorted(t_list *stack_a, t_list *stack_b);
 
 #endif
