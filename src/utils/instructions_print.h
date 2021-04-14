@@ -1,29 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap_utils.h                                  :+:      :+:    :+:   */
+/*   instructions_print.h                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dda-silv <dda-silv@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/12 15:35:31 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/04/14 16:44:23 by dda-silv         ###   ########.fr       */
+/*   Created: 2021/04/14 16:41:28 by dda-silv          #+#    #+#             */
+/*   Updated: 2021/04/14 16:43:16 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_UTILS_H
-# define PUSH_SWAP_UTILS_H
+#ifndef INSTRUCTIONS_PRINT_H
+# define INSTRUCTIONS_PRINT_H
 
 # include "utils.h"
 # include "instructions.h"
-# include "instructions_print.h"
 
-void	split_a_in_two_w_median(t_list **stack_a,
-			t_list **stack_b,
-			int median,
-			int (*cmp)(int, int));
-void	merge_b_into_a(t_list **stack_a,
-			t_list **stack_b,
-			int half_len);
-void	rotate_until_sorted(t_list **stack);
+void	swap_stack_print(t_list **stack, char *str);
+void	push_stack_print(t_list **dest, t_list **src, char *str);
+void	rotate_stack_print(t_list **stack, char *str);
+void	rev_rotate_stack_print(t_list **stack, char *str);
 
 #endif

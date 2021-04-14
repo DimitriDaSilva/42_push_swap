@@ -6,7 +6,7 @@
 /*   By: dda-silv <dda-silv@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 15:35:08 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/04/14 10:22:26 by dda-silv         ###   ########.fr       */
+/*   Updated: 2021/04/14 16:47:22 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,12 @@ void	split_a_in_two_w_median(t_list **stack_a,
 		if (cmp(median, (long int)(*stack_a)->data)
 			|| is_first_node_sorted(*stack_a, *stack_b))
 		{
-			printf("ra\n");
-			rotate_stack(stack_a);
+			
+			rotate_stack_print(stack_a, "ra");
 		}
 		else
 		{
-			printf("pb\n");
-			push_stack(stack_b, stack_a);
+			push_stack_print(stack_b, stack_a, "pb");
 			half_len--;
 		}
 	}
@@ -43,23 +42,18 @@ void	merge_b_into_a(t_list **stack_a,
 {
 	while (*stack_b)
 	{
-		if ((long int)(*stack_b)->data == ft_lst_get_min(*stack_b))
+		if ((long int)(*stack_b)->data == ft_lst_get_min(*stack_b)
+				&& (*stack_b)->data > (*stack_a)->data)
+			rotate_stack_print(stack_a, "ra");
+		else if ((long int)(*stack_b)->data == ft_lst_get_min(*stack_b))
 		{
-			printf("pa\n");
-			push_stack(stack_a, stack_b);
-			printf("ra\n");
-			rotate_stack(stack_a);
+			push_stack_print(stack_a, stack_b, "pa");
+			rotate_stack_print(stack_a, "ra");
 		}
 		else if ((long int)(*stack_b)->data == ft_lst_get_max(*stack_b))
-		{
-			printf("pa\n");
-			push_stack(stack_a, stack_b);
-		}
+			push_stack_print(stack_a, stack_b, "pa");
 		else
-		{
-			printf("rb\n");
-			rotate_stack(stack_b);
-		}
+			rotate_stack_print(stack_b, "rb");
 	}
 	(void)half_len;
 }
@@ -76,17 +70,11 @@ void	rotate_until_sorted(t_list **stack)
 	if (index < half_len)
 	{
 		while ((long int)(*stack)->data != min)
-		{
-			printf("ra\n");
-			rotate_stack(stack);
-		}
+			rotate_stack_print(stack, "ra");
 	}
 	else
 	{
 		while ((long int)(*stack)->data != min)
-		{
-			printf("rra\n");
-			rev_rotate_stack(stack);
-		}
+			rev_rotate_stack_print(stack, "rra");
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: dda-silv <dda-silv@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 09:21:22 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/04/12 16:30:22 by dda-silv         ###   ########.fr       */
+/*   Updated: 2021/04/14 16:48:12 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,9 @@ void	sort_stack_small(t_list **stack_a)
 		if ((*stack_a)->data < (*stack_a)->next->data
 			|| ((long int)(*stack_a)->data == max
 						&& (long int)(*stack_a)->next->data == min))
-		{
-			printf("ra\n");
-			rotate_stack(stack_a);
-		}
+			rotate_stack_print(stack_a, "ra");
 		else
-		{
-			printf("sa\n");
-			swap_stack(stack_a);
-		}
+			swap_stack_print(stack_a, "sa");
 	}
 }
 
