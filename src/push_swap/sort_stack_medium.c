@@ -1,18 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap_utils.c                                  :+:      :+:    :+:   */
+/*   sort_stack_medium.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dda-silv <dda-silv@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/12 15:35:08 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/04/14 17:1 b17y dda-silv         ###   ########.fr       */
+/*   Created: 2021/04/15 08:48:17 by dda-silv          #+#    #+#             */
+/*   Updated: 2021/04/15 08:55:43 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap_utils.h"
+#include "sort_stack_medium.h"
 
-void	split_a_in_two_w_median(t_list **stack_a,
+void	sort_stack_medium(t_list **stack_a, t_list **stack_b)
+{
+	int	median;
+	int	len;
+
+	median = ft_lst_get_median(*stack_a);
+	len = ft_lstsize(*stack_a);
+	split_a_in_two_w_median_medium(stack_a, stack_b, median, is_less_than_or_equal);
+	sort_stack_small(stack_a);
+	if (ft_lstsize(*stack_b) == 2 && (*stack_b)->data < (*stack_b)->next->data)
+		swap_stack_print(stack_b, "sb");
+	merge_b_into_a_medium(stack_a, stack_b, len / 2);
+	rotate_until_sorted(stack_a);
+}
+
+static void	split_a_in_two_w_median_medium(t_list **stack_a,
 				t_list **stack_b,
 				int median,
 				int (*cmp)(int, int))
@@ -26,14 +41,14 @@ void	split_a_in_two_w_median(t_list **stack_a,
 			&& !is_first_node_sorted(*stack_a, *stack_b)
 			&& half_len--)
 			push_stack_print(stack_b, stack_a, "pb");
-		else if (is_closer_to_top(*stack_a, median, cmp))
+		else if (is_closer_to_top_medium(*stack_a, median, cmp))
 			rotate_stack_print(stack_a, "ra");
 		else
 			rev_rotate_stack_print(stack_a, "rra");
 	}
 }
 
-int	is_closer_to_top(t_list *stack, int median, int (*cmp)(int, int))
+static int	is_closer_to_top_medium(t_list *stack, int median, int (*cmp)(int, int))
 {
 	t_list	*tmp;
 	int		curr_index;
@@ -61,19 +76,14 @@ int	is_closer_to_top(t_list *stack, int median, int (*cmp)(int, int))
 	else
 		return (first_index < (curr_index - last_index));
 }
-
-void	merge_b_into_a(t_list **stack_a,
+static void	merge_b_into_a_medium(t_list **stack_a,
 				t_list **stack_b,
 				int half_len)
 {
 	while (*stack_b)
 	{
-		// if ((*stack_b)->next == 0
-		// 	&& is_right_position(stack_a, stack_b))
-		// 	push_stack_print(stack_a, stack_b, "pa");
-		if (((long int)(*stack_b)->data == ft_lst_get_min(*stack_b)
-			|| (long int)(*stack_b)->data == ft_lst_get_max(*stack_b))
-			&& !is_right_position(stack_a, stack_b))
+		if ((long int)(*stack_b)->data == ft_lst_get_min(*stack_b)
+			&& (*stack_b)->data > (*stack_a)->data)
 			rotate_stack_print(stack_a, "ra");
 		else if ((long int)(*stack_b)->data == ft_lst_get_min(*stack_b))
 		{
@@ -87,43 +97,4 @@ void	merge_b_into_a(t_list **stack_a,
 			rotate_stack_print(stack_b, "rb");
 	}
 	(void)half_len;
-}
-
-int	is_right_position(t_list **stack_a, t_list **stack_b)
-{
-	int	min_a;
-	int	max_a;
-	int	check;
-
-	min_a = ft_lst_get_min(*stack_a);
-	max_a = ft_lst_get_max(*stack_a);
-	if ((long int)(*stack_b)->data < min_a)
-		return (min_a == (long int)(*stack_a)->data);
-	else if (max_a < (long int)(*stack_b)->data)
-		return (min_a == (long int)(*stack_a)->data);
-	push_stack(stack_a, stack_b);
-	check = is_first_node_sorted(*stack_a, *stack_b);
-	push_stack(stack_b, stack_a);
-	return (check);
-}
-
-void	rotate_until_sorted(t_list **stack)
-{
-	int	min;
-	int	half_len;
-	int	index;
-
-	min = ft_lst_get_min(*stack);
-	half_len = ft_lstsize(*stack) / 2;
-	index = ft_lst_get_node_index(*stack, (long long)min);
-	if (index < half_len)
-	{
-		while ((long int)(*stack)->data != min)
-			rotate_stack_print(stack, "ra");
-	}
-	else
-	{
-		while ((long int)(*stack)->data != min)
-			rev_rotate_stack_print(stack, "rra");
-	}
 }
