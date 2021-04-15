@@ -6,7 +6,7 @@
 /*   By: dda-silv <dda-silv@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 20:09:17 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/04/14 23:11:22 by dda-silv         ###   ########.fr       */
+/*   Updated: 2021/04/15 15:30:53 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,29 +106,4 @@ int	is_sorted(t_list *stack)
 			return (0);
 	}
 	return (1);
-}
-
-int	is_first_node_sorted(t_list *stack_a, t_list *stack_b)
-{
-	t_list	*dup;
-	t_list	*tmp;
-	int		index_first_node;
-	int		index_last_node;
-
-	if (stack_b && (long long)stack_a->data > ft_lst_get_min(stack_b))
-		return (0);
-	else if (stack_b && (long long)stack_a->data < ft_lst_get_max(stack_b))
-		return (0);
-	tmp = stack_a;
-	while (tmp->next)
-		tmp = tmp->next;
-	dup = ft_lstdup(stack_a);
-	ft_lst_sort(&dup, ascending);
-	index_first_node = ft_lst_get_node_index(dup, (long long)stack_a->data);
-	index_last_node = ft_lst_get_node_index(dup, (long long)tmp->data);
-	ft_lstclear(&dup, ft_lstdel_int);
-	if (index_last_node == index_first_node - 1)
-		return (1);
-	else
-		return (0);
 }

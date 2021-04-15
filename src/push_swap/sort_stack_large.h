@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort_stack_large.h                                   :+:      :+:    :+:   */
+/*   sort_stack_large.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dda-silv <dda-silv@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/15 08:49:08 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/04/15 08:50:35 by dda-silv         ###   ########.fr       */
+/*   Created: 2021/04/15 16:45:28 by dda-silv          #+#    #+#             */
+/*   Updated: 2021/04/15 16:47:57 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,8 @@ static void	merge_b_into_a_w_median(t_list **stack_a,
 				t_list **stack_b,
 				int median,
 				int (*cmp)(int, int));
+static int	is_first_node_a_sorted(t_list *stack_a);
+static void	merge_b_into_a_in_order(t_list **stack_a, t_list **stack_b);
+static int	is_min_max_closer_to_top(t_list *stack, int min, int max);
 
 #endif

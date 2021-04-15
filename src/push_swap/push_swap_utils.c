@@ -52,24 +52,6 @@ void	merge_b_into_a(t_list **stack_a,
 	(void)half_len;
 }
 
-int	is_right_position(t_list **stack_a, t_list **stack_b)
-{
-	int	min_a;
-	int	max_a;
-	int	check;
-
-	min_a = ft_lst_get_min(*stack_a);
-	max_a = ft_lst_get_max(*stack_a);
-	if ((long int)(*stack_b)->data < min_a)
-		return (min_a == (long int)(*stack_a)->data);
-	else if (max_a < (long int)(*stack_b)->data)
-		return (min_a == (long int)(*stack_a)->data);
-	push_stack(stack_a, stack_b);
-	check = is_first_node_sorted(*stack_a, *stack_b);
-	push_stack(stack_b, stack_a);
-	return (check);
-}
-
 void	rotate_until_sorted(t_list **stack)
 {
 	int	min;
@@ -90,3 +72,21 @@ void	rotate_until_sorted(t_list **stack)
 			rev_rotate_stack_print(stack, "rra");
 	}
 }
+
+// int	is_first_node_b_sorted(t_list **stack_a, t_list **stack_b)
+// {
+// 	int	min_a;
+// 	int	max_a;
+// 	int	check;
+
+// 	min_a = ft_lst_get_min(*stack_a);
+// 	max_a = ft_lst_get_max(*stack_a);
+// 	if ((long int)(*stack_b)->data < min_a)
+// 		return (min_a == (long int)(*stack_a)->data);
+// 	else if (max_a < (long int)(*stack_b)->data)
+// 		return (min_a == (long int)(*stack_a)->data);
+// 	push_stack(stack_a, stack_b);
+// 	check = is_first_node_a_sorted(*stack_a);
+// 	push_stack(stack_b, stack_a);
+// 	return (check);
+// }
