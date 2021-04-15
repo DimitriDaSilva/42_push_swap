@@ -27,40 +27,9 @@ void	split_a_in_two_w_median(t_list **stack_a,
 			half_len--;
 			push_stack_print(stack_b, stack_a, "pb");
 		}
-		else if (is_closer_to_top(*stack_a, median, cmp))
-			rotate_stack_print(stack_a, "ra");
 		else
-			rev_rotate_stack_print(stack_a, "rra");
+			rotate_stack_print(stack_a, "ra");
 	}
-}
-
-int	is_closer_to_top(t_list *stack, int median, int (*cmp)(int, int))
-{
-	t_list	*tmp;
-	int		curr_index;
-	int		first_index;
-	int		last_index;
-
-	tmp = stack;
-	curr_index = 0;
-	first_index = -1;
-	last_index = -1;
-	while (tmp)
-	{
-		if (!cmp(median, (long int)tmp->data))
-		{
-			if (first_index == -1)
-				first_index = curr_index;
-			else
-				last_index = curr_index;
-		}
-		curr_index++;
-		tmp = tmp->next;
-	}
-	if (last_index == -1)
-		return (first_index < curr_index / 2);
-	else
-		return (first_index < (curr_index - last_index));
 }
 
 void	merge_b_into_a(t_list **stack_a,

@@ -6,7 +6,7 @@
 /*   By: dda-silv <dda-silv@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 15:35:31 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/04/14 19:40:18 by dda-silv         ###   ########.fr       */
+/*   Updated: 2021/04/15 10:43:38 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	split_a_in_two_w_median(t_list **stack_a,
 			t_list **stack_b,
 			int median,
 			int (*cmp)(int, int));
-int		is_closer_to_top(t_list *stack, int median, int (*cmp)(int, int));
 void	merge_b_into_a(t_list **stack_a,
 			t_list **stack_b,
 			int half_len);

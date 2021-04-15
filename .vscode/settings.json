@@ -1,0 +1,6 @@
+{
+	"files.associations": {
+		"*.c": "c",
+		"sort_stack_large.h": "c"
+	}
+}

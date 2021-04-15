@@ -6,7 +6,7 @@
 /*   By: dda-silv <dda-silv@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 09:21:22 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/04/15 08:50:51 by dda-silv         ###   ########.fr       */
+/*   Updated: 2021/04/15 10:56:29 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,5 @@ void	sort_stack(t_list **stack_a, t_list **stack_b)
 	else if (len <= 5)
 		sort_stack_medium(stack_a, stack_b);
 	else
-		sort_stack_big(stack_a, stack_b, len);
+		sort_stack_large(stack_a, stack_b);
 }
