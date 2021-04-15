@@ -22,9 +22,11 @@ void	split_a_in_two_w_median(t_list **stack_a,
 	half_len = ft_lstsize(*stack_a) / 2;
 	while (half_len && !is_sorted(*stack_a))
 	{
-		if (!cmp(median, (long int)(*stack_a)->data)
-			&& half_len--)
+		if (!cmp(median, (long int)(*stack_a)->data))
+		{
+			half_len--;
 			push_stack_print(stack_b, stack_a, "pb");
+		}
 		else if (is_closer_to_top(*stack_a, median, cmp))
 			rotate_stack_print(stack_a, "ra");
 		else
