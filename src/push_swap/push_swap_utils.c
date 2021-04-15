@@ -23,7 +23,6 @@ void	split_a_in_two_w_median(t_list **stack_a,
 	while (half_len && !is_sorted(*stack_a))
 	{
 		if (!cmp(median, (long int)(*stack_a)->data)
-			&& !is_first_node_sorted(*stack_a, *stack_b)
 			&& half_len--)
 			push_stack_print(stack_b, stack_a, "pb");
 		else if (is_closer_to_top(*stack_a, median, cmp))
