@@ -20,7 +20,7 @@ void	split_a_in_two_w_median(t_list **stack_a,
 	int	half_len;
 
 	half_len = ft_lstsize(*stack_a) / 2;
-	while (half_len && !is_sorted(*stack_a))
+	while (half_len)
 	{
 		if (!cmp(median, (long int)(*stack_a)->data))
 		{
@@ -69,14 +69,7 @@ void	merge_b_into_a(t_list **stack_a,
 {
 	while (*stack_b)
 	{
-		// if ((*stack_b)->next == 0
-		// 	&& is_right_position(stack_a, stack_b))
-		// 	push_stack_print(stack_a, stack_b, "pa");
-		if (((long int)(*stack_b)->data == ft_lst_get_min(*stack_b)
-			|| (long int)(*stack_b)->data == ft_lst_get_max(*stack_b))
-			&& !is_right_position(stack_a, stack_b))
-			rotate_stack_print(stack_a, "ra");
-		else if ((long int)(*stack_b)->data == ft_lst_get_min(*stack_b))
+		if ((long int)(*stack_b)->data == ft_lst_get_min(*stack_b))
 		{
 			push_stack_print(stack_a, stack_b, "pa");
 			if (*stack_b != 0)
