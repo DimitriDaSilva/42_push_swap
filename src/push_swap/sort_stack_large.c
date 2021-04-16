@@ -28,120 +28,141 @@
 
 void	sort_stack_large(t_list **stack_a, t_list **stack_b)
 {
-	int	len_b;
-	int	median;
-	int	first_qrtl;
-	int	third_qrtl;
-	int	count;
+	int		len_b;
+	t_list	*medians;
+	int		ra_count;
 
-	median = ft_lst_get_median(*stack_a);
-	first_qrtl = ft_lst_get_qrtl(*stack_a, 1);
-	third_qrtl = ft_lst_get_qrtl(*stack_a, 3);
-	split_a_in_two_w_median(stack_a, stack_b, median, is_less_than_or_equal);
+	medians = ft_lstnew((void *)ft_lst_get_median(*stack_a));
+	split_a_in_two_w_median(stack_a, stack_b, (long int)medians->data, is_less_than_or_equal);
+
 	len_b = ft_lstsize(*stack_b);
-	merge_b_into_a_w_median(stack_a, stack_b, len_b);
-	return ;
-		while (is_first_node_a_sorted(*stack_a))
-			rotate_stack_print(stack_a, "ra");
-		rotate_stack_print(stack_a, "ra");
-		while ((long int)(*stack_a)->data <= first_qrtl)
-			push_stack_print(stack_b, stack_a, "pb");
-		merge_b_into_a_in_order(stack_a, stack_b);
+	merge_b_into_a_w_median(stack_a, stack_b, len_b, &medians);
+	add_medians(medians, *stack_a);
 
+	while (medians->next)
+	{
 		while (is_first_node_a_sorted(*stack_a))
 			rotate_stack_print(stack_a, "ra");
-		count = 0;
-		while ((long int)(*stack_a)->data < median)
+		ra_count = 0;
+		while ((*stack_a)->data < medians->next->data)
 		{
-			if ((long int)(*stack_a)->data <= first_qrtl + 12)
+			if ((*stack_a)->data <= medians->data)
 				push_stack_print(stack_b, stack_a, "pb");
-			else
-			{
-				count++;
+			else if (++ra_count)
 				rotate_stack_print(stack_a, "ra");
-			}
 		}
-		while (count--)
+		while (ra_count--)
 			rev_rotate_stack_print(stack_a, "rra");
 		merge_b_into_a_in_order(stack_a, stack_b);
+		ft_lstdel_first(&medians, ft_lstdel_int);
+	}
 
-		while (is_first_node_a_sorted(*stack_a))
-			rotate_stack_print(stack_a, "ra");
-		count = 0;
-		while ((long int)(*stack_a)->data < median)
-		{
-			if ((long int)(*stack_a)->data <= median)
-				push_stack_print(stack_b, stack_a, "pb");
-			else
-			{
-				count++;
-				rotate_stack_print(stack_a, "ra");
-			}
-		}
-		while (count--)
-			rev_rotate_stack_print(stack_a, "rra");
-		merge_b_into_a_in_order(stack_a, stack_b);
+	// int	first_qrtl;
+	// int	third_qrtl;
+	// int	count;
 
-		while (is_first_node_a_sorted(*stack_a))
-			rotate_stack_print(stack_a, "ra");
-		count = 0;
-		while ((long int)(*stack_a)->data != ft_lst_get_min(*stack_a))
-		{
-			if ((long int)(*stack_a)->data <= third_qrtl)
-				push_stack_print(stack_b, stack_a, "pb");
-			else
-			{
-				count++;
-				rotate_stack_print(stack_a, "ra");
-			}
-		}
-		while (count--)
-			rev_rotate_stack_print(stack_a, "rra");
-		merge_b_into_a_in_order(stack_a, stack_b);
+	// first_qrtl = ft_lst_get_qrtl(*stack_a, 1);
+	// third_qrtl = ft_lst_get_qrtl(*stack_a, 3);
+		// while (is_first_node_a_sorted(*stack_a))
+		// 	rotate_stack_print(stack_a, "ra");
+		// rotate_stack_print(stack_a, "ra");
+		// while ((long int)(*stack_a)->data <= first_qrtl)
+		// 	push_stack_print(stack_b, stack_a, "pb");
+		// merge_b_into_a_in_order(stack_a, stack_b);
 
-		while (is_first_node_a_sorted(*stack_a))
-			rotate_stack_print(stack_a, "ra");
-		count = 0;
-		while ((long int)(*stack_a)->data != ft_lst_get_min(*stack_a))
-		{
-			if ((long int)(*stack_a)->data <= 100)
-				push_stack_print(stack_b, stack_a, "pb");
-			else
-			{
-				count++;
-				rotate_stack_print(stack_a, "ra");
-			}
-		}
-		while (count--)
-			rev_rotate_stack_print(stack_a, "rra");
-		merge_b_into_a_in_order(stack_a, stack_b);
+		// while (is_first_node_a_sorted(*stack_a))
+		// 	rotate_stack_print(stack_a, "ra");
+		// count = 0;
+		// while ((long int)(*stack_a)->data < median)
+		// {
+		// 	if ((long int)(*stack_a)->data <= first_qrtl + 12)
+		// 		push_stack_print(stack_b, stack_a, "pb");
+		// 	else
+		// 	{
+		// 		count++;
+		// 		rotate_stack_print(stack_a, "ra");
+		// 	}
+		// }
+		// while (count--)
+		// 	rev_rotate_stack_print(stack_a, "rra");
+		// merge_b_into_a_in_order(stack_a, stack_b);
+
+		// while (is_first_node_a_sorted(*stack_a))
+		// 	rotate_stack_print(stack_a, "ra");
+		// count = 0;
+		// while ((long int)(*stack_a)->data < median)
+		// {
+		// 	if ((long int)(*stack_a)->data <= median)
+		// 		push_stack_print(stack_b, stack_a, "pb");
+		// 	else
+		// 	{
+		// 		count++;
+		// 		rotate_stack_print(stack_a, "ra");
+		// 	}
+		// }
+		// while (count--)
+		// 	rev_rotate_stack_print(stack_a, "rra");
+		// merge_b_into_a_in_order(stack_a, stack_b);
+
+		// while (is_first_node_a_sorted(*stack_a))
+		// 	rotate_stack_print(stack_a, "ra");
+		// count = 0;
+		// while ((long int)(*stack_a)->data != ft_lst_get_min(*stack_a))
+		// {
+		// 	if ((long int)(*stack_a)->data <= third_qrtl)
+		// 		push_stack_print(stack_b, stack_a, "pb");
+		// 	else
+		// 	{
+		// 		count++;
+		// 		rotate_stack_print(stack_a, "ra");
+		// 	}
+		// }
+		// while (count--)
+		// 	rev_rotate_stack_print(stack_a, "rra");
+		// merge_b_into_a_in_order(stack_a, stack_b);
+
+		// while (is_first_node_a_sorted(*stack_a))
+		// 	rotate_stack_print(stack_a, "ra");
+		// count = 0;
+		// while ((long int)(*stack_a)->data != ft_lst_get_min(*stack_a))
+		// {
+		// 	if ((long int)(*stack_a)->data <= 100)
+		// 		push_stack_print(stack_b, stack_a, "pb");
+		// 	else
+		// 	{
+		// 		count++;
+		// 		rotate_stack_print(stack_a, "ra");
+		// 	}
+		// }
+		// while (count--)
+		// 	rev_rotate_stack_print(stack_a, "rra");
+		// merge_b_into_a_in_order(stack_a, stack_b);
 
 
 	rotate_until_sorted(stack_a);
-	(void)third_qrtl;
+	ft_lstclear(&medians, ft_lstdel_int);
 }
 
 static void	merge_b_into_a_w_median(t_list **stack_a,
 				t_list **stack_b,
-				int old_len)
+				int old_len,
+				t_list **medians)
 {
-	int	median;
 	int	curr_len;
 
-	if (old_len == 0)
+	if (old_len == 0 || !(*stack_b))
 		return ;
-	median = ft_lst_get_median(*stack_b);
+	ft_lstadd_front(medians, ft_lstnew((void *)ft_lst_get_median(*stack_b)));
 	curr_len = old_len;
-	while (curr_len > old_len / 2)
+	while (curr_len > old_len / 2 && *stack_b)
 	{
 		if ((long int)(*stack_b)->data == ft_lst_get_min(*stack_b))
 		{
 			push_stack_print(stack_a, stack_b, "pa");
-			curr_len--;
 			if (*stack_b != 0)
 				rotate_stack_print(stack_a, "ra");
 		}
-		else if (median < (long int)(*stack_b)->data)
+		else if ((*medians)->data <= (*stack_b)->data)
 		{
 			curr_len--;
 			push_stack_print(stack_a, stack_b, "pa");
@@ -149,7 +170,30 @@ static void	merge_b_into_a_w_median(t_list **stack_a,
 		else
 			rotate_stack_print(stack_b, "rb");
 	}
-	merge_b_into_a_w_median(stack_a, stack_b, curr_len);
+	merge_b_into_a_w_median(stack_a, stack_b, curr_len, medians);
+}
+
+static void	add_medians(t_list *medians, t_list *stack_a)
+{
+	t_list	*dup;
+	int		index_first;
+	int		index_second;
+	void	*data_intermediate_node;
+
+	dup = ft_lstdup(stack_a);
+	ft_lst_sort(&dup, ascending);
+	while (medians->next)
+	{
+		index_first = ft_lst_get_node_index(dup, (long int)medians->data);
+		index_second = ft_lst_get_node_index(dup, (long int)medians->next->data);
+		if (index_second - index_first > STACK_INCREMENT)
+		{
+			data_intermediate_node = ft_lst_get_data_node(dup, index_first +
+				(index_second - index_first) / 2);
+			ft_lstadd_after_another(medians, ft_lstnew(data_intermediate_node));
+		}
+		medians = medians->next->next;
+	}
 }
 
 static int	is_first_node_a_sorted(t_list *stack_a)
