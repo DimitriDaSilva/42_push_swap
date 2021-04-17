@@ -40,10 +40,10 @@ void	sort_stack_large(t_list **stack_a, t_list **stack_b)
 	merge_b_into_a_w_median(stack_a, stack_b, len_b, &medians);
 
 	// ft_lstadd_front(&medians, ft_lstnew(medians->data));
-	ft_lstdel_first(&medians, ft_lstdel_int);
+	// ft_lstdel_first(&medians, ft_lstdel_int);
 	sort_half_stack_a(stack_a, stack_b, &medians);
 
-	while (is_first_node_a_sorted(*stack_a))
+	while (is_first_node_a_sorted(*stack_a, *stack_b))
 		rotate_stack_print(stack_a, "ra");
 	return ;
 
@@ -74,26 +74,23 @@ static void	sort_half_stack_a(t_list **stack_a,
 
 	// is_stack_inc_changed = 0;
 	min = ft_lst_get_min(*stack_a);
-	while (1)
+	while (*medians)
 	{
-		while (is_first_node_a_sorted(*stack_a) && (long int)(*stack_a)->data != min)
+		while (is_first_node_a_sorted(*stack_a, *stack_b) && (long int)(*stack_a)->data != min)
 			rotate_stack_print(stack_a, "ra");
 		// is_stack_inc_changed = limit_stack_increment(*medians, *stack_a, is_stack_inc_changed);
 		ra_count = 0;
 		while ((*stack_a)->data < (*medians)->data && (long int)(*stack_a)->data != min)
 		{
-			if ((*stack_a)->data < (*medians)->data && !is_first_node_a_sorted(*stack_a))
+			if ((*stack_a)->data < (*medians)->data && !is_first_node_a_sorted(*stack_a, *stack_b))
 				push_stack_print(stack_b, stack_a, "pb");
-			else if (is_first_node_a_sorted(*stack_a) || ++ra_count)
+			else if (is_first_node_a_sorted(*stack_a, *stack_b) || ++ra_count)
 				rotate_stack_print(stack_a, "ra");
 		}
 		while (ra_count--)
 			rev_rotate_stack_print(stack_a, "rra");
 		merge_b_into_a_in_order(stack_a, stack_b);
-		if (!(*medians)->next)
-			break ;
 		ft_lstdel_first(medians, ft_lstdel_int);
-		// if (!is_stack_inc_changed)
 	}
 }
 
@@ -112,6 +109,7 @@ static void	merge_b_into_a_w_median(t_list **stack_a,
 	{
 		if ((long int)(*stack_b)->data == ft_lst_get_min(*stack_b))
 		{
+			old_len++;
 			push_stack_print(stack_a, stack_b, "pa");
 			if (*stack_b != 0)
 				rotate_stack_print(stack_a, "ra");
@@ -173,19 +171,20 @@ static void	merge_b_into_a_w_median(t_list **stack_a,
 // 	}
 // }
 
-static int	is_first_node_a_sorted(t_list *stack_a)
+static int	is_first_node_a_sorted(t_list *stack_a, t_list *stack_b)
 {
-	t_list	*dup;
+	t_list	*dup_a;
+	t_list	*dup_b;
 	int		index_first_node;
 	int		index_last_node;
-	void	*data_last_node;
 
-	data_last_node = ft_lst_get_data_last_node(stack_a);
-	dup = ft_lstdup(stack_a);
-	ft_lst_sort(&dup, ascending);
-	index_first_node = ft_lst_get_node_index(dup, (long long)stack_a->data);
-	index_last_node = ft_lst_get_node_index(dup, (long long)data_last_node);
-	ft_lstclear(&dup, ft_lstdel_int);
+	dup_a = ft_lstdup(stack_a);
+	dup_b = ft_lstdup(stack_b);
+	ft_lstadd_back(&dup_a, dup_b);
+	ft_lst_sort(&dup_a, ascending);
+	index_first_node = ft_lst_get_node_index(dup_a, (long long)stack_a->data);
+	index_last_node = ft_lst_get_node_index(dup_a, (long long)ft_lst_get_data_last_node(stack_a));
+	ft_lstclear(&dup_a, ft_lstdel_int);
 	if (index_last_node == (index_first_node - 1))
 		return (1);
 	else
