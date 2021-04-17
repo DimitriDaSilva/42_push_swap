@@ -39,6 +39,7 @@ void	sort_stack_large(t_list **stack_a, t_list **stack_b)
 	len_b = ft_lstsize(*stack_b);
 	merge_b_into_a_w_median(stack_a, stack_b, len_b, &medians);
 
+	ft_lstadd_front(&medians, ft_lstnew(medians->data));
 	sort_half_stack_a(stack_a, stack_b, &medians);
 
 	while (is_first_node_a_sorted(*stack_a))
@@ -51,6 +52,7 @@ void	sort_stack_large(t_list **stack_a, t_list **stack_b)
 	len_b = ft_lstsize(*stack_b);
 	merge_b_into_a_w_median(stack_a, stack_b, len_b, &medians);
 
+	ft_lstadd_front(&medians, ft_lstnew(medians->data));
 	sort_half_stack_a(stack_a, stack_b, &medians);
 
 	rotate_until_sorted(stack_a);
@@ -63,14 +65,16 @@ static void	sort_half_stack_a(t_list **stack_a,
 {
 	int	ra_count;
 	int	min;
+	int	is_stack_inc_changed;
 
 	min = ft_lst_get_min(*stack_a);
 	while ((*medians)->next)
 	{
 		while (is_first_node_a_sorted(*stack_a) && (long int)(*stack_a)->data != min)
 			rotate_stack_print(stack_a, "ra");
+		is_stack_inc_changed = limit_stack_increment(*medians, *stack_a);
 		ra_count = 0;
-		while ((*stack_a)->data < (*medians)->data)
+		while ((*stack_a)->data < (*medians)->next->data)
 		{
 			if ((long int)(*stack_a)->data == min)
 				break ;
@@ -82,7 +86,8 @@ static void	sort_half_stack_a(t_list **stack_a,
 		while (ra_count--)
 			rev_rotate_stack_print(stack_a, "rra");
 		merge_b_into_a_in_order(stack_a, stack_b);
-		ft_lstdel_first(medians, ft_lstdel_int);
+		if (!is_stack_inc_changed)
+			ft_lstdel_first(medians, ft_lstdel_int);
 	}
 }
 
@@ -116,24 +121,27 @@ static void	merge_b_into_a_w_median(t_list **stack_a,
 	merge_b_into_a_w_median(stack_a, stack_b, curr_len, medians);
 }
 
-// static int	get_stack_increment(t_list *medians, t_list *stack_a)
-// {
-// 	t_list	*dup;
-// 	int		index_first;
-// 	int		index_second;
-// 	int		stack_increment;
+static int	limit_stack_increment(t_list *medians, t_list *stack_a)
+{
+	t_list	*dup;
+	int		index_first;
+	int		index_second;
+	int		is_stack_inc_changed;
 
-// 	dup = ft_lstdup(stack_a);
-// 	ft_lst_sort(&dup, ascending);
-// 	index_first = ft_lst_get_node_index(dup, (long int)medians->data);
-// 	index_second = ft_lst_get_node_index(dup, (long int)medians->next->data);
-// 	if (index_second - index_first >= MAX_STACK_INCREMENT)
-// 		stack_increment = (long int)ft_lst_get_data_node(dup, index_first + MAX_STACK_INCREMENT);
-// 	else
-// 		stack_increment = (long int)medians->data;
-// 	ft_lstclear(&dup, ft_lstdel_int);
-// 	return (stack_increment);
-// }
+	dup = ft_lstdup(stack_a);
+	ft_lst_sort(&dup, ascending);
+	index_first = ft_lst_get_node_index(dup, (long int)medians->data);
+	index_second = ft_lst_get_node_index(dup, (long int)medians->next->data);
+	if (index_second - index_first >= MAX_STACK_INCREMENT)
+	{
+		is_stack_inc_changed = 1;
+		medians->data = ft_lst_get_data_node(dup, index_first + MAX_STACK_INCREMENT);
+	}
+	else
+		is_stack_inc_changed = 0;
+	ft_lstclear(&dup, ft_lstdel_int);
+	return (is_stack_inc_changed);
+}
 
 // static void	add_medians(t_list *medians, t_list *stack_a)
 // {

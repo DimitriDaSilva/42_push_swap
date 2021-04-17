@@ -6,7 +6,7 @@
 /*   By: dda-silv <dda-silv@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 16:45:28 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/04/16 22:38:09 by dda-silv         ###   ########.fr       */
+/*   Updated: 2021/04/17 09:05:36 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static void	merge_b_into_a_w_median(t_list **stack_a,
 static void	sort_half_stack_a(t_list **stack_a,
 				t_list **stack_b,
 				t_list **medians);
+static int	limit_stack_increment(t_list *medians, t_list *stack_a);
 static int	is_first_node_a_sorted(t_list *stack_a);
 static void	merge_b_into_a_in_order(t_list **stack_a, t_list **stack_b);
 static int	is_min_max_closer_to_top(t_list *stack, int min, int max);
