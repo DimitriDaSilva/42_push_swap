@@ -12,17 +12,20 @@
 
 #include "push_swap_utils.h"
 
-void	split_a_in_two_w_median(t_list **stack_a,
+void	split_a_in_two(t_list **stack_a,
 				t_list **stack_b,
-				int median,
-				int (*cmp)(int, int))
+				int limit,
+				char *type_limit)
 {
 	int	half_len;
 
-	half_len = ft_lstsize(*stack_a) / 2;
+	if (!ft_strcmp(type_limit, "median"))
+		half_len = ft_lstsize(*stack_a) / 2;
+	else
+		half_len = ft_lstsize(*stack_a) / 4 - 1;
 	while (half_len)
 	{
-		if (!cmp(median, (long int)(*stack_a)->data))
+		if (limit > (long int)(*stack_a)->data)
 		{
 			half_len--;
 			push_stack_print(stack_b, stack_a, "pb");

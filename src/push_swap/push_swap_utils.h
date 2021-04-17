@@ -6,7 +6,7 @@
 /*   By: dda-silv <dda-silv@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 15:35:31 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/04/15 16:49:01 by dda-silv         ###   ########.fr       */
+/*   Updated: 2021/04/17 09:30:16 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@
 # include "instructions.h"
 # include "instructions_print.h"
 
-void	split_a_in_two_w_median(t_list **stack_a,
-			t_list **stack_b,
-			int median,
-			int (*cmp)(int, int));
+void	split_a_in_two(t_list **stack_a,
+				t_list **stack_b,
+				int limit,
+				char *type_limit);
 void	merge_b_into_a(t_list **stack_a,
 			t_list **stack_b,
 			int half_len);
