@@ -6,7 +6,7 @@
 /*   By: dda-silv <dda-silv@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 09:21:22 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/04/18 16:49:49 by dda-silv         ###   ########.fr       */
+/*   Updated: 2021/04/18 18:13:06 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 void	sort_stack(t_list **stack_a, t_list **stack_b)
 {
 	int		len;
-	t_list	**partitions;
+	t_list	*partitions;
 
-	*partitions = 0;
-	ft_lstadd_front(partitions, ft_lstnew((void *)ft_lst_get_max(*stack_a)));
-	ft_lstadd_front(partitions, ft_lstnew((void *)ft_lst_get_min(*stack_a)));
+	partitions = 0;
+	ft_lstadd_front(&partitions, ft_lstnew((void *)ft_lst_get_max(*stack_a)));
+	ft_lstadd_front(&partitions, ft_lstnew((void *)ft_lst_get_min(*stack_a)));
 	len = ft_lstsize(*stack_a);
 	if (len <= 1)
 		return ;
@@ -28,5 +28,5 @@ void	sort_stack(t_list **stack_a, t_list **stack_b)
 	else if (len <= 5)
 		sort_stack_medium(stack_a, stack_b);
 	else
-		sort_stack_large(stack_a, stack_b, partitions, len);
+		sort_stack_large(stack_a, stack_b, &partitions, len);
 }
