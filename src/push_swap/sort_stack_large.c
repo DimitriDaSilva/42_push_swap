@@ -26,18 +26,23 @@
 ** @line-line	comment
 */
 
-void	sort_stack_large(t_list **stack_a, t_list **stack_b, t_list **medians, int len)
+void	sort_stack_large(t_list **stack_a, t_list **stack_b, t_list **partitions, int len)
 {
-	// base case
-	// size of medians is 2 or below
+	// base case: size of medians is 2 or below
+	if (ft_lstsize(*partitions) < 2)
+		return ;
 
 	// split
-	// get median between the 2 first medians (like for min and max, it would be median and for median and max, it would be 3 qrtl)
-	// sort medians OR add the median found between the 2 first ones
-	// push to b numbers that are between the medians / kind of a split
-	// come back to initial position by checking the size of stack b (unless half of the stack is in b)
-	// sort medians
-	if (get_diff_between_medians(*medians, *stack_a) <= MAX_STACK_INCREMENT)
+	if (get_delta_partitions(*partitions, *stack_a) > MAX_STACK_INCREMENT)
+	{
+		// get median between the 2 first medians
+		// sort medians OR add the median found between the 2 first ones
+	}
+	// push to b numbers that are between the 2 first medians / kind of a split. Loop until all expected number found
+	// come back to initial position by checking the amount of ra instructions (unless half of the stack is in b)
+
+	// sort
+	if (ft_lstsize(*stack_b) <= MAX_STACK_INCREMENT)
 	{
 		// merge b into a in order
 		// delete first median
