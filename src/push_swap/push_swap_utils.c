@@ -15,14 +15,8 @@
 void	split_a_in_two(t_list **stack_a,
 				t_list **stack_b,
 				int limit,
-				char *type_limit)
+				char half_len)
 {
-	int	half_len;
-
-	if (!ft_strcmp(type_limit, "median"))
-		half_len = ft_lstsize(*stack_a) / 2;
-	else
-		half_len = ft_lstsize(*stack_a) / 4 - 1;
 	while (half_len)
 	{
 		if (limit > (long int)(*stack_a)->data)

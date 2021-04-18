@@ -1,7 +1,9 @@
 build/
+.vscode/
 *.txt
 *.o
 *.a
+*.swp
 a.out
 *.sh
 checker

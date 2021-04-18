@@ -6,7 +6,7 @@
 /*   By: dda-silv <dda-silv@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 09:21:38 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/04/15 10:56:11 by dda-silv         ###   ########.fr       */
+/*   Updated: 2021/04/18 15:38:32 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,6 @@
 
 void	sort_stack_small(t_list **stack_a);
 void	sort_stack_medium(t_list **stack_a, t_list **stack_b);
-void	sort_stack_large(t_list **stack_a, t_list **stack_b);
+void	sort_stack_large(t_list **stack_a, t_list **stack_b, t_list **medians, int size);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: dda-silv <dda-silv@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 15:35:31 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/04/17 09:30:16 by dda-silv         ###   ########.fr       */
+/*   Updated: 2021/04/18 00:22:17 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 void	split_a_in_two(t_list **stack_a,
 				t_list **stack_b,
 				int limit,
-				char *type_limit);
+				char half_len);
 void	merge_b_into_a(t_list **stack_a,
 			t_list **stack_b,
 			int half_len);
