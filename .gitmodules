@@ -1,9 +1,6 @@
 [submodule "libft"]
 	path = libft
 	url = https://github.com/DimitriDaSilva/libft.git
-[submodule "42_push_swap_tester"]
-	path = 42_push_swap_tester
-	url = https://github.com/DimitriDaSilva/42_push_swap_tester.git
 [submodule "tester"]
 	path = tester
 	url = https://github.com/DimitriDaSilva/42_push_swap_tester.git
