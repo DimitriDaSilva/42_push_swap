@@ -98,8 +98,10 @@ int	split_a(t_list **stack_a,
 				t_list *partitions,
 				int partition_len)
 {
+	int	is_first_split;
 	int	ra_count;
 
+	is_first_split = ft_lstsize(*stack_a) / 2 == partition_len;
 	ra_count = 0;
 	while (partition_len)
 	{
@@ -107,7 +109,8 @@ int	split_a(t_list **stack_a,
 			&& (*stack_a)->data < partitions->next->data)
 		{
 			partition_len--;
-			if (is_first_node_a_sorted(*stack_a, *stack_b))
+			if (is_first_node_a_sorted(*stack_a, *stack_b)
+				&& !is_first_split)
 				rotate_stack_print(stack_a, "ra");
 			else
 				push_stack_print(stack_b, stack_a, "pb");
@@ -123,49 +126,39 @@ int	split_a(t_list **stack_a,
 	return (ra_count);
 }
 
+/*
+** Checks if the first_node of stack a is sorted in relation to the node
+** at the bottom of stack a
+** @param:	- [t_list *] stack_a
+**			- [t_list *] stack_b (we need it to merge them into a duplicate)
+** @return:	[int] true or false
+** Line-by-line comments:
+** @8		Merge stack_a and stack_b into a duplicate
+** @13		If they are sorted, last node's final position will be right
+**			before the first node
+** @14		In case stack_a is small (below 12), we need to make sure
+**			the size of stack_a is bigger than the last node's final position
+*/
+
 int	is_first_node_a_sorted(t_list *stack_a, t_list *stack_b)
 {
-	t_list	*dup;
-	int		index_first_node;
-	int		index_last_node;
-	int		check;
+	t_list		*dup;
+	int			index_first_node;
+	int			index_last_node;
+	long long	data_last_node;
 
+	data_last_node = (long long)ft_lst_get_data_last_node(stack_a);
 	dup = ft_lstdup(stack_a);
 	ft_lstadd_back(&dup, ft_lstdup(stack_b));
 	ft_lst_sort(&dup, ascending);
 	index_first_node = ft_lst_get_node_index(dup, (long long)stack_a->data);
-	index_last_node = ft_lst_get_node_index(dup, (long long)ft_lst_get_data_last_node(stack_a));
-	if (index_last_node == (index_first_node - 1)
-		&& is_bottom_stack_a_sorted(stack_a, dup, index_last_node))
-		check = 1;
-	else
-		check = 0;
+	index_last_node = ft_lst_get_node_index(dup, data_last_node);
 	ft_lstclear(&dup, ft_lstdel_int);
-	return (check);
-}
-
-int	is_bottom_stack_a_sorted(t_list *stack_a, t_list *sorted_stack, int sorted_index_last_node)
-{
-	int	index_bottom_a;
-	int	i;
-
-	index_bottom_a = ft_lstsize(stack_a) - sorted_index_last_node;
-	if (index_bottom_a <= 0)
+	if (index_last_node == (index_first_node - 1)
+		&& ft_lstsize(stack_a) > index_last_node)
+		return (1);
+	else
 		return (0);
-	i = 0;
-	while (i < index_bottom_a)
-	{
-		stack_a = stack_a->next;
-		i++;
-	}
-	while (stack_a)
-	{
-		if (stack_a->data != sorted_stack->data)
-			return (0);
-		stack_a = stack_a->next;
-		sorted_stack = sorted_stack->next;
-	}
-	return (1);
 }
 
 void	merge_b_into_a_in_order(t_list **stack_a, t_list **stack_b)
@@ -249,6 +242,30 @@ void	merge_b_into_a_w_partitions(t_list **stack_a,
 	}
 	merge_b_into_a_w_partitions(stack_a, stack_b, partitions, curr_len - tmp);
 }
+
+// int	is_bottom_stack_a_sorted(t_list *stack_a, t_list *sorted_stack, int sorted_index_last_node)
+// {
+// 	int	index_bottom_a;
+// 	int	i;
+
+// 	index_bottom_a = ft_lstsize(stack_a) - sorted_index_last_node;
+// 	if (index_bottom_a <= 0)
+// 		return (0);
+// 	i = 0;
+// 	while (i < index_bottom_a)
+// 	{
+// 		stack_a = stack_a->next;
+// 		i++;
+// 	}
+// 	while (stack_a)
+// 	{
+// 		if (stack_a->data != sorted_stack->data)
+// 			return (0);
+// 		stack_a = stack_a->next;
+// 		sorted_stack = sorted_stack->next;
+// 	}
+// 	return (1);
+// }
 
 
 
