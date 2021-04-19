@@ -83,7 +83,8 @@ int	get_diff_partitions(t_list *partitions, t_list *stack_a)
 	ft_lst_sort(&dup, ascending);
 	index_first = ft_lst_get_node_index(dup, (long int)partitions->data);
 	index_second = ft_lst_get_node_index(dup, (long int)partitions->next->data);
-	if (index_second - index_first > MAX_STACK_INCREMENT)
+	if (index_second - index_first > MAX_STACK_INCREMENT
+		|| (index_first == 0 && index_second == (ft_lstsize(stack_a) - 1)))
 	{
 		index_second =  index_first + (index_second - index_first) / 2 + 1;
 		data_intermediate_node = ft_lst_get_data_node(dup, index_second);
@@ -109,13 +110,12 @@ int	split_a(t_list **stack_a,
 			&& (*stack_a)->data < partitions->next->data)
 		{
 			partition_len--;
-			if (is_first_node_a_sorted(*stack_a, *stack_b)
-				&& !is_first_split)
+			if (is_first_node_a_sorted(*stack_a, *stack_b) && !is_first_split)
 				rotate_stack_print(stack_a, "ra");
 			else
 				push_stack_print(stack_b, stack_a, "pb");
 		}
-		else if ((*stack_a)->data < partitions->data)
+		else if ((*stack_a)->data <= partitions->data)
 			rotate_stack_print(stack_a, "ra");
 		else
 		{
