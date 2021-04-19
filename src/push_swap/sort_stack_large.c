@@ -121,7 +121,6 @@ int	split_a(t_list **stack_a,
 		}
 	}
 	return (ra_count);
-	(void)is_first_node_a_sorted;
 }
 
 int	is_first_node_a_sorted(t_list *stack_a, t_list *stack_b)
@@ -136,14 +135,37 @@ int	is_first_node_a_sorted(t_list *stack_a, t_list *stack_b)
 	ft_lst_sort(&dup, ascending);
 	index_first_node = ft_lst_get_node_index(dup, (long long)stack_a->data);
 	index_last_node = ft_lst_get_node_index(dup, (long long)ft_lst_get_data_last_node(stack_a));
-	if (index_first_node == ft_lstsize(dup) - 1 && index_last_node == 0)
-		check = 1;
-	else if (index_last_node == (index_first_node - 1))
+	if (index_last_node == (index_first_node - 1)
+		&& is_bottom_stack_a_sorted(stack_a, dup, index_last_node))
 		check = 1;
 	else
 		check = 0;
 	ft_lstclear(&dup, ft_lstdel_int);
 	return (check);
+}
+
+int	is_bottom_stack_a_sorted(t_list *stack_a, t_list *sorted_stack, int sorted_index_last_node)
+{
+	int	index_bottom_a;
+	int	i;
+
+	index_bottom_a = ft_lstsize(stack_a) - sorted_index_last_node;
+	if (index_bottom_a <= 0)
+		return (0);
+	i = 0;
+	while (i < index_bottom_a)
+	{
+		stack_a = stack_a->next;
+		i++;
+	}
+	while (stack_a)
+	{
+		if (stack_a->data != sorted_stack->data)
+			return (0);
+		stack_a = stack_a->next;
+		sorted_stack = sorted_stack->next;
+	}
+	return (1);
 }
 
 void	merge_b_into_a_in_order(t_list **stack_a, t_list **stack_b)
