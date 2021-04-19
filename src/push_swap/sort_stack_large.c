@@ -41,7 +41,7 @@ void	sort_stack_large(t_list **stack_a, t_list **stack_b, t_list **partitions, i
 	// push to b numbers that are between the 2 first medians. Loop until all expected number found
 	ra_count = split_a(stack_a, stack_b, *partitions, len_curr_partition);
 	// come back to initial position by checking the amount of ra instructions (unless half of the stack is in b)
-	if (ft_lstsize(*stack_a) != ft_lstsize(*stack_b))
+	if (ft_lstsize(*stack_a) != ft_lstsize(*stack_b) && ft_lstsize(*stack_a) + 1 != ft_lstsize(*stack_b))
 		while (ra_count--)
 			rev_rotate_stack_print(stack_a, "rra");
 
@@ -102,12 +102,12 @@ int	split_a(t_list **stack_a,
 	int	is_first_split;
 	int	ra_count;
 
-	is_first_split = ft_lstsize(*stack_a) / 2 == partition_len;
+	is_first_split = ft_round(ft_lstsize(*stack_a) / 2.0) == partition_len;
 	ra_count = 0;
 	while (partition_len)
 	{
-		if (partitions->data <= (*stack_a)->data
-			&& (*stack_a)->data < partitions->next->data)
+		if ((long int)partitions->data <= (long int)(*stack_a)->data
+			&& (long int)(*stack_a)->data < (long int)partitions->next->data)
 		{
 			partition_len--;
 			if (is_first_node_a_sorted(*stack_a, *stack_b) && !is_first_split)
@@ -115,7 +115,7 @@ int	split_a(t_list **stack_a,
 			else
 				push_stack_print(stack_b, stack_a, "pb");
 		}
-		else if ((*stack_a)->data <= partitions->data)
+		else if ((long int)(*stack_a)->data <= (long int)partitions->data)
 			rotate_stack_print(stack_a, "ra");
 		else
 		{
@@ -227,7 +227,7 @@ void	merge_b_into_a_w_partitions(t_list **stack_a,
 	curr_len = old_len;
 	while (curr_len > old_len / 2 && *stack_b)
 	{
-		if ((*partitions)->data <= (*stack_b)->data)
+		if ((long int)(*partitions)->data <= (long int)(*stack_b)->data)
 		{
 			curr_len--;
 			push_stack_print(stack_a, stack_b, "pa");
