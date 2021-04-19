@@ -21,12 +21,12 @@ int	get_diff_partitions(t_list *partitions, t_list *stack_a)
 
 	dup = ft_lstdup(stack_a);
 	ft_lst_sort(&dup, ascending);
-	index_first = ft_lst_get_node_index(dup, (long int)partitions->data);
-	index_second = ft_lst_get_node_index(dup, (long int)partitions->next->data);
+	index_first = ft_lst_get_node_index(dup, (long)partitions->data);
+	index_second = ft_lst_get_node_index(dup, (long)partitions->next->data);
 	if (index_second - index_first > MAX_STACK_INCREMENT
 		|| (index_first == 0 && index_second == (ft_lstsize(stack_a) - 1)))
 	{
-		index_second =  index_first + (index_second - index_first) / 2 + 1;
+		index_second = index_first + (index_second - index_first) / 2 + 1;
 		data_intermediate_node = ft_lst_get_data_node(dup, index_second);
 		ft_lstadd_after_another(partitions, ft_lstnew(data_intermediate_node));
 	}
@@ -46,8 +46,8 @@ int	split_a(t_list **stack_a,
 	ra_count = 0;
 	while (partition_len)
 	{
-		if ((long int)partitions->data <= (long int)(*stack_a)->data
-			&& (long int)(*stack_a)->data < (long int)partitions->next->data)
+		if ((long)partitions->data <= (long)(*stack_a)->data
+			&& (long)(*stack_a)->data < (long)partitions->next->data)
 		{
 			partition_len--;
 			if (is_first_node_a_sorted(*stack_a, *stack_b) && !is_first_split)
@@ -55,7 +55,7 @@ int	split_a(t_list **stack_a,
 			else
 				push_stack_print(stack_b, stack_a, "pb");
 		}
-		else if ((long int)(*stack_a)->data <= (long int)partitions->data)
+		else if ((long)(*stack_a)->data <= (long)partitions->data)
 			rotate_stack_print(stack_a, "ra");
 		else
 		{
@@ -110,14 +110,14 @@ void	merge_b_into_a_ordering(t_list **stack_a, t_list **stack_b)
 	{
 		min_b = ft_lst_get_min(*stack_b);
 		max_b = ft_lst_get_max(*stack_b);
-		if ((long int)(*stack_a)->data < min_b
+		if ((long)(*stack_a)->data < min_b
 			&& is_min_max_closer_to_top(*stack_b, min_b, max_b))
 			double_rotate_stack_print(stack_a, stack_b);
-		else if ((long int)(*stack_a)->data < min_b)
+		else if ((long)(*stack_a)->data < min_b)
 			rotate_stack_print(stack_a, "ra");
-		else if ((long int)(*stack_b)->data == max_b)
+		else if ((long)(*stack_b)->data == max_b)
 			push_stack_print(stack_a, stack_b, "pa");
-		else if ((long int)(*stack_b)->data == min_b)
+		else if ((long)(*stack_b)->data == min_b)
 			push_stack_print(stack_a, stack_b, "pa");
 		else if (is_min_max_closer_to_top(*stack_b, min_b, max_b))
 			rotate_stack_print(stack_b, "rb");

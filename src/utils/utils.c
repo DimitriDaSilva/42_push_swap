@@ -6,7 +6,7 @@
 /*   By: dda-silv <dda-silv@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 20:09:17 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/04/15 15:30:53 by dda-silv         ###   ########.fr       */
+/*   Updated: 2021/04/19 22:47:43 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,18 +73,18 @@ void	print_stack(t_list **stack_a, int *len_a, t_list **stack_b, int *len_b)
 {
 	if (*len_a > *len_b && (*len_a)--)
 	{
-		printf("  % -5ld\n", (long int)(*stack_a)->data);
+		printf("  % -5ld\n", (long)(*stack_a)->data);
 		*stack_a = (*stack_a)->next;
 	}
 	else if (*len_a < *len_b && (*len_b)--)
 	{
-		printf("         % -5ld\n", (long int)(*stack_b)->data);
+		printf("         % -5ld\n", (long)(*stack_b)->data);
 		*stack_b = (*stack_b)->next;
 	}
 	else if ((*len_a)-- && (*len_b)--)
 	{
-		printf("  % -5ld", (long int)(*stack_a)->data);
-		printf("  % -5ld\n", (long int)(*stack_b)->data);
+		printf("  % -5ld", (long)(*stack_a)->data);
+		printf("  % -5ld\n", (long)(*stack_b)->data);
 		*stack_a = (*stack_a)->next;
 		*stack_b = (*stack_b)->next;
 	}
@@ -100,9 +100,9 @@ int	is_sorted(t_list *stack)
 		return (1);
 	while (stack->next)
 	{
-		tmp = (long int)stack->data;
+		tmp = (long)stack->data;
 		stack = stack->next;
-		if (tmp >= (long int)stack->data)
+		if (tmp >= (long)stack->data)
 			return (0);
 	}
 	return (1);

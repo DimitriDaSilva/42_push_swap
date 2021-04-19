@@ -6,7 +6,7 @@
 /*   By: dda-silv <dda-silv@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 18:37:39 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/04/19 19:22:34 by dda-silv         ###   ########.fr       */
+/*   Updated: 2021/04/19 23:27:12 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,9 @@ void	merge_b_into_a_partitioning(t_list **stack_a,
 	curr_len = old_len;
 	while (curr_len > old_len / 2 && *stack_b)
 	{
-		if ((long int)(*partitions)->data <= (long int)(*stack_b)->data)
-		{
-			curr_len--;
+		if ((long)(*partitions)->data <= (long)(*stack_b)->data && curr_len--)
 			push_stack_print(stack_a, stack_b, "pa");
-		}
-		else if ((long int)(*stack_b)->data == ft_lst_get_min(*stack_b))
+		else if ((long)(*stack_b)->data == ft_lst_get_min(*stack_b))
 		{
 			tmp++;
 			push_stack_print(stack_a, stack_b, "pa");
@@ -56,12 +53,12 @@ void	rotate_until_sorted(t_list **stack)
 	index = ft_lst_get_node_index(*stack, (long long)min);
 	if (index < half_len)
 	{
-		while ((long int)(*stack)->data != min)
+		while ((long)(*stack)->data != min)
 			rotate_stack_print(stack, "ra");
 	}
 	else
 	{
-		while ((long int)(*stack)->data != min)
+		while ((long)(*stack)->data != min)
 			rev_rotate_stack_print(stack, "rra");
 	}
 }
@@ -75,7 +72,7 @@ void	split_a_medium(t_list **stack_a,
 	half_len = ft_lstsize(*stack_a) / 2;
 	while (half_len)
 	{
-		if ((long int)(*stack_a)->data < median)
+		if ((long)(*stack_a)->data < median)
 		{
 			half_len--;
 			push_stack_print(stack_b, stack_a, "pb");
@@ -100,7 +97,7 @@ int	is_closer_to_top(t_list *stack, int median)
 	last_index = -1;
 	while (tmp)
 	{
-		if ((long int)tmp->data < median)
+		if ((long)tmp->data < median)
 		{
 			if (first_index == -1)
 				first_index = curr_index;

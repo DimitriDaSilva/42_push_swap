@@ -6,7 +6,7 @@
 /*   By: dda-silv <dda-silv@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 09:53:55 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/04/19 19:25:34 by dda-silv         ###   ########.fr       */
+/*   Updated: 2021/04/19 23:28:00 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	main(int argc, char *argv[])
 ** @param:	- [t_list **] a linked list where the list is stored
 **			- [t_list **] an emppty linked list that we'll use to sort stack A
 ** Line-by-line comments:
-** @2		Partitions is a linked list with the breakpoints of each partitions.
+** @1		Partitions is a linked list with the breakpoints of each partitions.
 **			A partition is a segment of the list we need to sort. So the initial
 **			partition is the max and min. The partitions need to be in ascending
 **			order at all times
@@ -66,18 +66,20 @@ void	sort_stack(t_list **stack_a, t_list **stack_b)
 	else if (len <= 3)
 		sort_stack_small(stack_a);
 	else if (len <= 5)
-		sort_stack_medium(stack_a, stack_b, &partitions);
+		sort_stack_medium(stack_a, stack_b);
 	else
 		sort_stack_large(stack_a, stack_b, &partitions);
+	ft_lstclear(&partitions, ft_lstdel_int);
 }
 
 /*
-** Sorts a stack of size 3 or less
+** Sorts a stack of size 2 or 3
 ** @param:	- [t_list **] a linked list where the list is stored
-**			- [type] param_value
-** @return:	[type] return_value
 ** Line-by-line comments:
-** @line-line	comment
+** @8-11	We know the first item of the stack is already sorted if:
+**			- First node is lower than second
+**			- OR the first node is the max of the stack and the second
+**			is the min
 */
 
 void	sort_stack_small(t_list **stack_a)
@@ -89,43 +91,69 @@ void	sort_stack_small(t_list **stack_a)
 	max = ft_lst_get_max(*stack_a);
 	while (!is_sorted(*stack_a))
 	{
-		if (((long int)(*stack_a)->data < (long int)(*stack_a)->next->data)
-			|| ((long int)(*stack_a)->data == max
-						&& (long int)(*stack_a)->next->data == min))
+		if (((long)(*stack_a)->data < (long)(*stack_a)->next->data)
+			|| ((long)(*stack_a)->data == max
+					&& (long)(*stack_a)->next->data == min))
 			rotate_stack_print(stack_a, "ra");
 		else
 			swap_stack_print(stack_a, "sa");
 	}
 }
 
-void	sort_stack_medium(t_list **stack_a,
-			t_list **stack_b,
-			t_list **partitions)
+/*
+** Sorts a stack of size 4 or 5
+** @param:	- [t_list **] a linked list where the list is stored
+**			- [t_list **] an emppty linked list that we'll use to sort stack A
+** Line-by-line comments:
+** @4		We push to stack B the 1 or 2 numbers that are below the median
+** @5		We sort the 3 numbers left in A
+** @6-8		To reduce instructions, we are checking that stack B is ordered
+**			in decreasing order. Otherwise, the merging algo will need
+**			2 unnecessary instructions (pa and ra)
+*/
+
+void	sort_stack_medium(t_list **stack_a,	t_list **stack_b)
 {
 	int	median;
 
 	median = ft_lst_get_median(*stack_a);
 	split_a_medium(stack_a, stack_b, median);
 	sort_stack_small(stack_a);
-	if (ft_lstsize(*stack_b) == 2 && (*stack_b)->data < (*stack_b)->next->data)
+	if (ft_lstsize(*stack_b) == 2
+		&& (long)(*stack_b)->data < (long)(*stack_b)->next->data)
 		swap_stack_print(stack_b, "sb");
 	merge_b_into_a_ordering(stack_a, stack_b);
-	rotate_until_sorted(stack_a);
-	(void)partitions;
 }
 
 /*
-** For larger stacks (5 and more), the logics works as follows:
-** 1. Split stack A in 2 - above median in A & below median in B
-** 2. Merge stack B into A
-**    - First push to A values above 1st quartile and min values
-**    - Second, push to A values below 1st quartile
-** 3. In a loop, by increments of 12, parse the stack A and sort it using
-**    the stack B
-** @param:	- [t_list **] head of the list stack_a
-**			- [t_list **] head of the list stack_b
+** For larger stacks (5 and more), we recursively split the stack A in
+** more manageable chunks (defined by MAX_STACK_INCREMENT here 20)
+** @param:	- [t_list **] a linked list where the list is stored
+**			- [t_list **] an emppty linked list that we'll use to sort stack A
+**			- [t_list **] partition breakpoints sorted in ascending order
 ** Line-by-line comments:
-** @line-line	comment
+** @4-5		Base case of the recursion. Each time we split we create breakpoints
+**			and each time we finish to properly sort a partition, we delete its
+**			bottom breakpoint, eventually there is nothing more to split and
+**			we get to one breakpoint (the maximum value of the stack)
+** @6-11	Algo part 1: splitting
+** @6		If two first partitions are too far apart, get median between the
+**			two breakpoints
+** @7		Push to b numbers that are between the 2 first breakpoints. Loop
+**			until all expected number found
+** @8-11	Come back to initial position by checking the amount of ra
+**			instructions executed during the spliting
+**			We don't need to go back if it's splited in half (even / odd)
+** @12-23	Algo part 2: sorting
+** @12-16	If the chunk is manageable, merge while ordering and delete the
+**			first breakpoint of the partition
+** @19-20	If still not manageable enough, we merge while ordering
+**			approximately. While we do it, we create new partitions
+** @21		We need to make sure it's sorted. In some cases it won't be
+** @22		The first partition from this merger is already sorted so we
+**			delete it
+** @24		RECURSIVE CALL: we'll split and merge_partitioning while it's not
+**			manageable enough
 */
 
 void	sort_stack_large(t_list **stack_a,
@@ -135,42 +163,26 @@ void	sort_stack_large(t_list **stack_a,
 	int	ra_count;
 	int	len_curr_partition;
 
-	// base case: size of medians is 1 or below
-	if (ft_lstsize(*partitions) < 2)
+	if (ft_lstsize(*partitions) == 1)
 		return ;
-
-	// split
-	// If median two first partitions are too far apart, get intermediate partition
 	len_curr_partition = get_diff_partitions(*partitions, *stack_a);
-	// push to b numbers that are between the 2 first medians. Loop until all expected number found
 	ra_count = split_a(stack_a, stack_b, *partitions, len_curr_partition);
-	// come back to initial position by checking the amount of ra instructions (unless half of the stack is in b)
-	if (ft_lstsize(*stack_a) != ft_lstsize(*stack_b) && ft_lstsize(*stack_a) + 1 != ft_lstsize(*stack_b))
+	if (ft_lstsize(*stack_a) != ft_lstsize(*stack_b)
+		&& ft_lstsize(*stack_a) + 1 != ft_lstsize(*stack_b))
 		while (ra_count--)
 			rev_rotate_stack_print(stack_a, "rra");
-
-	// sort
 	if (ft_lstsize(*stack_b) <= MAX_STACK_INCREMENT)
 	{
-		// merge b into a in order
 		merge_b_into_a_ordering(stack_a, stack_b);
-		// delete first median
 		ft_lstdel_first(partitions, ft_lstdel_int);
 	}
 	else
 	{
-		// merge b into a with partitions
-		merge_b_into_a_partitioning(stack_a, stack_b, partitions, ft_lstsize(*stack_b));
-		// sort medians
+		merge_b_into_a_partitioning(stack_a, stack_b, partitions,
+									ft_lstsize(*stack_b));
 		ft_lst_sort(partitions, ascending);
 		ft_lstdel_first(partitions, ft_lstdel_int);
 	}
-
-	// recursive call
 	sort_stack_large(stack_a, stack_b, partitions);
-	// rotate until sorted
 	rotate_until_sorted(stack_a);
-	// clean medians llist
-	ft_lstclear(partitions, ft_lstdel_int);
-	// return
 }
