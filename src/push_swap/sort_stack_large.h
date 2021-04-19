@@ -6,14 +6,14 @@
 /*   By: dda-silv <dda-silv@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 16:45:28 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/04/19 10:15:40 by dda-silv         ###   ########.fr       */
+/*   Updated: 2021/04/19 12:12:48 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SORT_STACK_LARGE_H
 # define SORT_STACK_LARGE_H
 
-# define MAX_STACK_INCREMENT 12
+# define MAX_STACK_INCREMENT 20
 
 # include "sort_stack.h"
 

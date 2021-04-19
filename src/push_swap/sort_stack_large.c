@@ -166,17 +166,19 @@ void	merge_b_into_a_in_order(t_list **stack_a, t_list **stack_b)
 	int	min_b;
 	int	max_b;
 
-	min_b = ft_lst_get_min(*stack_b);
-	max_b = ft_lst_get_max(*stack_b);
 	while (*stack_b)
 	{
-		if ((long int)(*stack_b)->data == ft_lst_get_max(*stack_b))
-			push_stack_print(stack_a, stack_b, "pa");
-		else if ((long int)(*stack_b)->data == ft_lst_get_min(*stack_b))
-		{
-			push_stack_print(stack_a, stack_b, "pa");
+		min_b = ft_lst_get_min(*stack_b);
+		max_b = ft_lst_get_max(*stack_b);
+		if ((long int)(*stack_a)->data < min_b
+			&& is_min_max_closer_to_top(*stack_b, min_b, max_b))
+			double_rotate_stack_print(stack_a, stack_b);
+		else if ((long int)(*stack_a)->data < min_b)
 			rotate_stack_print(stack_a, "ra");
-		}
+		else if ((long int)(*stack_b)->data == max_b)
+			push_stack_print(stack_a, stack_b, "pa");
+		else if ((long int)(*stack_b)->data == min_b)
+			push_stack_print(stack_a, stack_b, "pa");
 		else if (is_min_max_closer_to_top(*stack_b, min_b, max_b))
 			rotate_stack_print(stack_b, "rb");
 		else
