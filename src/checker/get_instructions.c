@@ -6,20 +6,11 @@
 /*   By: dda-silv <dda-silv@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 16:25:58 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/04/10 20:08:18 by dda-silv         ###   ########.fr       */
+/*   Updated: 2021/04/20 14:13:25 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_instructions.h"
-
-/*
-** Get instructions from stdin and stores them in a linked list
-** @param:	- [type] param_value
-**			- [type] param_value
-** @return:	[type] return_value
-** Line-by-line comments:
-** @line-line	comment
-*/
 
 void	get_instructions(t_list **instructions,
 			t_list **stack_a,

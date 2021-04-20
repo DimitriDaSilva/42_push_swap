@@ -6,7 +6,7 @@
 /*   By: dda-silv <dda-silv@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 09:53:55 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/04/19 23:28:00 by dda-silv         ###   ########.fr       */
+/*   Updated: 2021/04/20 12:15:28 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ int	main(int argc, char *argv[])
 
 /*
 ** Sorts the stack using different methods depending on the size of the list
-** @param:	- [t_list **] a linked list where the list is stored
-**			- [t_list **] an emppty linked list that we'll use to sort stack A
+** @param:	- [t_list **] a linked list where the stack to sort is stored
+**			- [t_list **] an empty linked list that we'll use to sort stack A
 ** Line-by-line comments:
 ** @1		Partitions is a linked list with the breakpoints of each partitions.
 **			A partition is a segment of the list we need to sort. So the initial
@@ -74,7 +74,7 @@ void	sort_stack(t_list **stack_a, t_list **stack_b)
 
 /*
 ** Sorts a stack of size 2 or 3
-** @param:	- [t_list **] a linked list where the list is stored
+** @param:	- [t_list **] a linked list where the stack to sort is stored
 ** Line-by-line comments:
 ** @8-11	We know the first item of the stack is already sorted if:
 **			- First node is lower than second
@@ -102,8 +102,8 @@ void	sort_stack_small(t_list **stack_a)
 
 /*
 ** Sorts a stack of size 4 or 5
-** @param:	- [t_list **] a linked list where the list is stored
-**			- [t_list **] an emppty linked list that we'll use to sort stack A
+** @param:	- [t_list **] a linked list where the stack to sort is stored
+**			- [t_list **] an empty linked list that we'll use to sort stack A
 ** Line-by-line comments:
 ** @4		We push to stack B the 1 or 2 numbers that are below the median
 ** @5		We sort the 3 numbers left in A
@@ -114,10 +114,7 @@ void	sort_stack_small(t_list **stack_a)
 
 void	sort_stack_medium(t_list **stack_a,	t_list **stack_b)
 {
-	int	median;
-
-	median = ft_lst_get_median(*stack_a);
-	split_a_medium(stack_a, stack_b, median);
+	split_a_medium(stack_a, stack_b);
 	sort_stack_small(stack_a);
 	if (ft_lstsize(*stack_b) == 2
 		&& (long)(*stack_b)->data < (long)(*stack_b)->next->data)
@@ -128,8 +125,8 @@ void	sort_stack_medium(t_list **stack_a,	t_list **stack_b)
 /*
 ** For larger stacks (5 and more), we recursively split the stack A in
 ** more manageable chunks (defined by MAX_STACK_INCREMENT here 20)
-** @param:	- [t_list **] a linked list where the list is stored
-**			- [t_list **] an emppty linked list that we'll use to sort stack A
+** @param:	- [t_list **] a linked list where the stack to sort is stored
+**			- [t_list **] an empty linked list that we'll use to sort stack A
 **			- [t_list **] partition breakpoints sorted in ascending order
 ** Line-by-line comments:
 ** @4-5		Base case of the recursion. Each time we split we create breakpoints

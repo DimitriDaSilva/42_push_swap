@@ -6,7 +6,7 @@
 /*   By: dda-silv <dda-silv@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 09:53:55 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/04/11 09:27:35 by dda-silv         ###   ########.fr       */
+/*   Updated: 2021/04/20 14:16:16 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 ** Check if the list of instructions is correctly sorting the stack
 ** @param:	- [int] nb of arguments
 **			- [char **] stack as a array of strings
-** @return:	[int] return_value
 ** Line-by-line comments:
 ** @8		Converting to int makes it much easier to work with the stacks
 ** 			We only convert it after making sure that the instructions are valid
@@ -45,8 +44,8 @@ int	main(int argc, char *argv[])
 	get_instructions(&instructions, &stack_a, &stack_b);
 	exec_instructions(instructions, &stack_a, &stack_b, mode);
 	if (is_sorted(stack_a) && ft_lstsize(stack_b) == 0)
-		printf("OK\n");
+		printf("%sOK%s\n", GREEN_BOLD, RESET);
 	else
-		printf("KO\n");
+		printf("%sKO%s\n", RED_BOLD, RESET);
 	ft_exit(0, &stack_a, &stack_b, &instructions);
 }
