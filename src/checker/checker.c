@@ -6,7 +6,7 @@
 /*   By: dda-silv <dda-silv@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 09:53:55 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/04/20 14:16:16 by dda-silv         ###   ########.fr       */
+/*   Updated: 2021/04/20 17:20:07 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ int	main(int argc, char *argv[])
 	get_instructions(&instructions, &stack_a, &stack_b);
 	exec_instructions(instructions, &stack_a, &stack_b, mode);
 	if (is_sorted(stack_a) && ft_lstsize(stack_b) == 0)
-		printf("%sOK%s\n", GREEN_BOLD, RESET);
+		printf("OK\n");
 	else
-		printf("%sKO%s\n", RED_BOLD, RESET);
+		printf("KO\n");
 	ft_exit(0, &stack_a, &stack_b, &instructions);
 }
