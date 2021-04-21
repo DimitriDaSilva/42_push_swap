@@ -6,7 +6,7 @@
 /*   By: dda-silv <dda-silv@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 20:09:17 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/04/20 18:31:44 by dda-silv         ###   ########.fr       */
+/*   Updated: 2021/04/21 04:24:00 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	ft_exit(int exit_code,
 			ft_lstclear(stack_b, ft_lstdel_int);
 			ft_lstclear(instructions, free);
 		}
-		ret = write(STDERR_FILENO, "Error\n", 6);
+		ret = write(STDERR_FILENO, "Error\n", ft_strlen("Error\n"));
 		exit(EXIT_FAILURE);
 		(void)ret;
 	}
