@@ -6,6 +6,7 @@ build/
 *.swp
 a.out
 *.sh
+checker_Mac
 checker
 push_swap
 !src/checker

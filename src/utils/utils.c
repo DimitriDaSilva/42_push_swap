@@ -6,7 +6,7 @@
 /*   By: dda-silv <dda-silv@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 20:09:17 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/04/21 04:24:00 by dda-silv         ###   ########.fr       */
+/*   Updated: 2021/05/14 12:47:01 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@
 **			- [int *] stack A. Just need to free it, so len not needed
 **			- [int *] stack B. Just need to free it, so len not needed
 **			- [char **] instructions. NULL terminated array of strings
-** Line-by-line comments:
-** @line-line	comment
 */
 
 void	ft_exit(int exit_code,
@@ -32,8 +30,6 @@ void	ft_exit(int exit_code,
 		t_list **stack_b,
 		t_list **instructions)
 {
-	int	ret;
-
 	if (exit_code == 0)
 	{
 		ft_lstclear(stack_a, ft_lstdel_int);
@@ -50,9 +46,8 @@ void	ft_exit(int exit_code,
 			ft_lstclear(stack_b, ft_lstdel_int);
 			ft_lstclear(instructions, free);
 		}
-		ret = write(STDERR_FILENO, "Error\n", ft_strlen("Error\n"));
+		ft_putstr_fd("Error\n", STDERR_FILENO);
 		exit(EXIT_FAILURE);
-		(void)ret;
 	}
 }
 

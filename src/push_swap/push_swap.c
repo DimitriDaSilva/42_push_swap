@@ -6,7 +6,7 @@
 /*   By: dda-silv <dda-silv@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 09:53:55 by dda-silv          #+#    #+#             */
-/*   Updated: 2021/04/20 12:15:28 by dda-silv         ###   ########.fr       */
+/*   Updated: 2021/05/14 12:39:12 by dda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,7 +176,7 @@ void	sort_stack_large(t_list **stack_a,
 	else
 	{
 		merge_b_into_a_partitioning(stack_a, stack_b, partitions,
-									ft_lstsize(*stack_b));
+			ft_lstsize(*stack_b));
 		ft_lst_sort(partitions, ascending);
 		ft_lstdel_first(partitions, ft_lstdel_int);
 	}
